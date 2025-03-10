@@ -28,12 +28,11 @@ export default function RecruiterNavbar() {
     setAnchorEl(null);
   };
 
-  // Logout Function
   const handleLogout = () => {
-    handleMenuClose();
-    navigate('/login');
+    localStorage.removeItem("token");   // Token delete
+    localStorage.removeItem("userType");
+    window.location.href = "/login";  // Redirect to login page
   };
-
   // Toggle Mobile Menu
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);

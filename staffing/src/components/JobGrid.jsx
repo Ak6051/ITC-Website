@@ -75,8 +75,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Grid, Card, CardContent, Typography, Button, Box, Divider } from "@mui/material";
 import { LocationOn, Work } from "@mui/icons-material";
-import PersonIcon from "@mui/icons-material/Person";
-import PhoneIcon from "@mui/icons-material/Phone";
 import { motion } from "framer-motion";
 
 const JobsForFreshers = () => {
@@ -88,11 +86,11 @@ const JobsForFreshers = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/employer/fetch-employer");
-        setJobs(response.data);
+        const response = await axios.get("http://localhost:5000/api/employer/all-jobs");
+        setJobs(response.data); // Directly storing fetched jobs
       } catch (error) {
         setError("Error fetching jobs");
-        console.error("Error fetching employers:", error);
+        console.error("Error fetching jobs:", error);
       } finally {
         setLoading(false);
       }
@@ -123,39 +121,49 @@ const JobsForFreshers = () => {
                   backdropFilter: "blur(8px)",
                 }}
               >
-                <CardContent >
+                <CardContent>
                   <Typography variant="h6" fontWeight="bold" color="#333">
-                    {job.requirement}
+                    {job.title}
                   </Typography>
                   <Typography variant="subtitle1" color="primary" sx={{ mb: 1 }}>
-                    {job.companyName}
+                    {job.requirement}
                   </Typography>
                   <Divider sx={{ mb: 2 }} />
+                  <Typography variant="body2" color="textSecondary" sx={{ mb: 1 }}>
+                    {job.description}
+                  </Typography>
+                  <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                    <Work fontSize="small" sx={{ color: "#757575", mr: 0.5 }} />
+                    <Typography variant="body2" color="textSecondary">
+                      Experience: {job.experience || "Not specified"}
+                    </Typography>
+                  </Box>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                     <LocationOn fontSize="small" sx={{ color: "#757575", mr: 0.5 }} />
                     <Typography variant="body2" color="textSecondary">
                       {job.location}
                     </Typography>
                   </Box>
-                  <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                    <PhoneIcon fontSize="small" sx={{ color: "#757575", mr: 0.5 }} />
-                    <Typography variant="body2" color="textSecondary">
-                      {job.mobileNo}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <PersonIcon fontSize="small" sx={{ color: "#757575", mr: 0.5 }} />
-                    <Typography variant="body2" color="textSecondary">
-                      {job.name || "Not disclosed"}
-                    </Typography>
-                  </Box>
+                
+                  <Typography variant="body2" fontWeight="bold" sx={{ mt: 1 }}>
+                    Company: {job.companyName}
+                  </Typography>
+                  <Typography variant="body2">
+                Employer: {job.employerName}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color={job.status === "active" ? "green" : "red"}
+                  >
+                    Status: {job.status}
+                  </Typography>
                 </CardContent>
               </Card>
             </motion.div>
           </Grid>
         ))}
       </Grid>
-      <Box sx={{ textAlign: "center", mt: 4 , }}>
+      <Box sx={{ textAlign: "center", mt: 4 }}>
         {jobs.length > 6 && (
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <Button

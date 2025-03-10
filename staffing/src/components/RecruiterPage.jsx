@@ -44,6 +44,16 @@ const DashboardPage = () => {
 
   // Employer count state
   const [employerCount, setEmployerCount] = useState(0);
+  
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userType = localStorage.getItem("userType");
+
+    if (!token || userType !== "recruiter") {
+        navigate("/login"); // Unauthorized users ko login pe bhejo
+    }
+}, [navigate]);
 
   // Fetch employer count on component load
   useEffect(() => {

@@ -297,6 +297,8 @@
 // };
 
 // export default Home;
+
+
 import React from 'react';
 import { TextField, InputAdornment, Button, Box, MenuItem, Typography, Container } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -308,6 +310,8 @@ import SearchPost from '../components/SearchPost';
 import JobGrid from '../components/JobGrid';
 import TestimonialPage from '../components/TestimonialPage';
 import VideoSection from '../components/VideoSection';
+import OurCoreValue from '../components/OurCoreValue';
+import PracticeAreas from '../components/OurServices';
 
 const Home = () => {
   return (
@@ -316,9 +320,10 @@ const Home = () => {
         sx={{
           textAlign: "center",
           padding: "25px 20px",
-          background: "linear-gradient(to right,rgb(54, 53, 129),rgb(0, 113, 130))",
+          background: "linear-gradient(to right,rgb(18, 17, 83),rgb(0, 113, 130))",
           // background: "linear-gradient(to right,rgb(73, 137, 209),rgb(0, 113, 130))",
           color: "#fff",
+          marginTop:'100px'
         }}
       >
         <Typography 
@@ -341,7 +346,8 @@ const Home = () => {
               alignItems: "center",
               background: "rgba(255, 255, 255, 0.15)",
               borderRadius: "50px",
-              padding: "20px",
+              padding: "20px ",
+              marginLeft:'-18px',
               boxShadow: 4,
               justifyContent: "center",
               width: "100%",
@@ -418,7 +424,9 @@ const Home = () => {
 
       <Slider />
       <JobGrid/>
+      <OurCoreValue/>
       <PlacementConsultants/>
+      <PracticeAreas/>
       <VideoSection/>
       <SearchPost/>
       <TestimonialPage/>

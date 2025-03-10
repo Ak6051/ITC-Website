@@ -5,6 +5,7 @@ import contactImage from "../assets/5.png"; // Replace with actual image path
 
 const ContactUs = () => {
   return (
+    
     <Container maxWidth="lg" sx={{ py: 5 }}>
       <Grid container spacing={4} alignItems="center">
         {/* Left Image Section */}

@@ -15,6 +15,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/employer', employerRoutes);
+
 app.use('/api/recruiter', require('./routes/recruiter.route'))
 
 // MongoDB Connection
@@ -23,6 +24,6 @@ mongoose.connect(process.env.Mongo_URL, {
     useUnifiedTopology: true 
 })
 .then(() => {
-    app.listen(5000, '0.0.0.0', () => console.log('Server running on port 5000'));
+    app.listen(5000,  () => console.log('Server running on port 5000'));
 })
 .catch(err => console.log('MongoDB connection error:', err));

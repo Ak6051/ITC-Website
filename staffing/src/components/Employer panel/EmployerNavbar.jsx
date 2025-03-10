@@ -1,15 +1,26 @@
 // src/components/EmployerNavbar.js
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import React, { useState } from 'react';
+import { AppBar, Toolbar, Typography, Button, Box, Menu, MenuItem, IconButton } from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const EmployerNavbar = () => {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleLogout = () => {
-    // Clear any authentication tokens or data
-    localStorage.removeItem('employerToken');
-    navigate('/');
+    localStorage.removeItem("token");
+    localStorage.removeItem("employerId");
+    localStorage.removeItem("userType");
+    window.location.href = "/employer-login";
   };
 
   return (
@@ -22,9 +33,25 @@ const EmployerNavbar = () => {
           <Button color="inherit" onClick={() => navigate('/employer-dashboard')}>
             Dashboard
           </Button>
-          <Button color="inherit" onClick={handleLogout}>
-            Logout
-          </Button>
+          <IconButton color="inherit" onClick={handleMenuOpen}>
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={() => { navigate('/edit-profile'); handleMenuClose(); }}>
+              Edit Profile
+            </MenuItem>
+            <MenuItem onClick={() => { navigate('/recruiter-messages'); handleMenuClose(); }}>
+              Recruiter Messages
+            </MenuItem>
+            <MenuItem onClick={() => { navigate('/change-password'); handleMenuClose(); }}>
+              Change Password
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>
