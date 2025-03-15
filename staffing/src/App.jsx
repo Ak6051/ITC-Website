@@ -70,6 +70,12 @@ import RecruiterProtectedRoute from "./components/RecruiterProtectedRoute";
 import EmployerProtectedRoute from "./components/EmployerProtectedRoute";
 import EmployerJobList from './components/Employer panel/EmployerJobList';
 import PracticeArea from './components/PracticeArea';
+import CandidateLogin from './components/Candidate/CandidateLogin';
+import CandidateRegister from './components/Candidate/CandidateRegister';
+import Step2 from './components/Candidate/St2PersonalDetails';
+import Step3 from './components/Candidate/st3EducationDetsil';
+import JobList from './components/Recruiter.manageJob';
+import ChangePassword from './components/RecruiterPassword';
 
 const App = () => {
   return (
@@ -91,6 +97,15 @@ const App = () => {
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/employer-jobs" element={<EmployerJobList />} />
           <Route path="/practice-areas" element={<PracticeArea />} />
+          <Route path="/candidate-login" element={<CandidateLogin />} />
+          <Route path="/candidate-register" element={<CandidateRegister />} />
+          <Route path="/st2" element={<Step2 />} />
+          <Route path="/st3" element={<Step3 />} />
+          <Route path="/change-password" element={<ChangePassword/>} />
+          <Route path="/manageJob" element={<JobList/>} />
+
+
+
 
 
           {/* ✅ Employer ke liye protected route */}

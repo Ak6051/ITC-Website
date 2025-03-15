@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
   const location = useLocation();
 
   // Routes for different navbars
-  const recruiterPages = ['/recruiter', '/profile', '/employerUpdate' , '/jobpost'];
+  const recruiterPages = ['/recruiter', '/profile', '/employerUpdate' , '/jobpost', '/manageJob','/change-password'];
   const employerPages = ['/employer-dashboard','/employer-jobs'];
 
   const isEmployerNavbar = employerPages.some(path => location.pathname.startsWith(path));

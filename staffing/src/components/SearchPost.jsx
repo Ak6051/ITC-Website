@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Grid, Typography, Button, Box } from "@mui/material";
 import { styled } from "@mui/system";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const cities = [
   "Bangalore", "Mumbai", "Gurgaon", "Noida", "Hyderabad", "Pune",
@@ -46,6 +47,7 @@ const CityButton = styled(Button)({
 const SearchPost = () => {
   const [showAll, setShowAll] = useState(false);
   const visibleCities = showAll ? cities : cities.slice(0, 6);
+  const navigate = useNavigate()
 
   return (
     <Box textAlign="center" p={3} bgcolor="#eef7ff">
@@ -53,8 +55,8 @@ const SearchPost = () => {
         Are you an employer?
       </Typography>
       <Box display="flex" justifyContent="center" gap={2} flexWrap="wrap" mb={2}>
-        <StyledButton variant="contained" color="error">Search Your Hire</StyledButton>
-        <StyledButton variant="contained" color="primary">Post Jobs for Free</StyledButton>
+        <StyledButton variant="contained" color="error"onClick={() => navigate("/")}>Search Your Hire</StyledButton>
+        <StyledButton variant="contained" color="primary" onClick={() => navigate("/employer-login")}>Post Jobs for Free</StyledButton>
       </Box>
       <Typography variant="body1" color="textSecondary" mb={2}>
         Explore our top recruitment agencies and placement consultants by city to find the best hiring solutions for your business.

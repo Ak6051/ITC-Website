@@ -60,7 +60,7 @@ const DashboardPage = () => {
     const fetchEmployers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/employer/fetch-employer"
+          "http://localhost:5000/api/employer/all-jobs"
         );
         setEmployerCount(response.data.length); // Total employers count
       } catch (error) {

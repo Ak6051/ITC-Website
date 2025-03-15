@@ -1,3 +1,198 @@
+// import React, { useState } from "react";
+// import {
+//   Box,
+//   TextField,
+//   Button,
+//   MenuItem,
+//   Typography,
+//   Checkbox,
+//   FormControlLabel,
+//   AppBar,
+//   Toolbar,
+//   Menu,
+//   MenuItem as DropdownItem,
+// } from "@mui/material";
+
+// import { Dashboard } from "@mui/icons-material";
+// import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios"; // Import axios for API call
+// import RecruiterDashNav from "../Pages/RecruiterDashNav";
+
+// const JobPostForm = () => {
+//   const navigate = useNavigate();
+
+//   // State for Form Data
+//   const [formData, setFormData] = useState({
+//     title: "",
+//     requirement: "",
+//     description: "",
+//     experience: "",
+//     location: "",
+//     companyName: "",
+//     status: "Open",
+//   });
+
+//   // Dropdown state management
+//   const [jobAnchorEl, setJobAnchorEl] = useState(null);
+//   const [candidatesAnchorEl, setCandidatesAnchorEl] = useState(null);
+//   const [settingsAnchorEl, setSettingsAnchorEl] = useState(null);
+
+//   const handleMenuOpen = (event, setAnchor) => {
+//     setAnchor(event.currentTarget);
+//   };
+
+//   const handleMenuClose = (setAnchor) => {
+//     setAnchor(null);
+//   };
+
+//   const handleDashboardClick = () => {
+//     navigate("/recruiter");
+//   };
+
+//   // Handle Input Change
+//   const handleChange = (e) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
+
+//   // Handle Form Submission
+//   const handleSubmit = async () => {
+//     try {
+//       const response = await axios.post("http://localhost:5000/api/recruiter/job", formData);
+//       alert("Job Posted Successfully!");
+//       console.log(response.data);
+//       setFormData({
+//         title: "",
+//         requirement: "",
+//         description: "",
+//         experience: "",
+//         location: "",
+//         companyName: "",
+//         status: "active",
+//       });
+//     } catch (error) {
+//       console.error("Error posting job:", error);
+//       alert("Failed to post job.");
+//     }
+//   };
+
+//   return (
+//     <>
+//    <RecruiterDashNav/>
+
+//       {/* Form Section */}
+//       <Box
+//         sx={{
+//           display: "flex",
+//           justifyContent: "center",
+//           padding: "40px",
+//           background: "#F8F8F8",
+//         }}
+//       >
+//         <Box
+//           sx={{
+//             width: "800px",
+//             background: "white",
+//             borderRadius: "10px",
+//             boxShadow: 3,
+//             padding: "20px",
+//           }}
+//         >
+//           <Typography
+//             variant="h6"
+//             sx={{
+//               background: "#E7F0FA",
+//               padding: "10px",
+//               borderRadius: "5px",
+//             }}
+//           >
+//             Job Detail
+//           </Typography>
+
+//           <TextField
+//             fullWidth
+//             label="Job Title"
+//             name="title"
+//             value={formData.title}
+//             onChange={handleChange}
+//             margin="normal"
+//           />
+
+//           <TextField
+//             fullWidth
+//             label="Job Requirement"
+//             name="requirement"
+//             value={formData.requirement}
+//             onChange={handleChange}
+//             margin="normal"
+//           />
+
+//           <TextField
+//             fullWidth
+//             multiline
+//             rows={4}
+//             label="Job Description"
+//             name="description"
+//             value={formData.description}
+//             onChange={handleChange}
+//             margin="normal"
+//           />
+
+//           <TextField
+//             fullWidth
+//             label="Experience"
+//             name="experience"
+//             value={formData.experience}
+//             onChange={handleChange}
+//             margin="normal"
+//           />
+
+//           <TextField
+//             fullWidth
+//             label="Location"
+//             name="location"
+//             value={formData.location}
+//             onChange={handleChange}
+//             margin="normal"
+//           />
+
+//           <TextField
+//             fullWidth
+//             label="Company Name"
+//             name="companyName"
+//             value={formData.companyName}
+//             onChange={handleChange}
+//             margin="normal"
+//           />
+
+//           <TextField
+//             fullWidth
+//             select
+//             label="Status"
+//             name="status"
+//             value={formData.status}
+//             onChange={handleChange}
+//             margin="normal"
+//           >
+//             <MenuItem value="Open">active</MenuItem>
+//             <MenuItem value="Closed">Closed</MenuItem>
+//           </TextField>
+
+//           <Button
+//             variant="contained"
+//             fullWidth
+//             sx={{ marginTop: "20px", backgroundColor: "#007bff" }}
+//             onClick={handleSubmit}
+//           >
+//             Submit Job Post
+//           </Button>
+//         </Box>
+//       </Box>
+//     </>
+//   );
+// };
+
+// export default JobPostForm;
 import React, { useState } from "react";
 import {
   Box,
@@ -5,203 +200,195 @@ import {
   Button,
   MenuItem,
   Typography,
-  Checkbox,
-  FormControlLabel,
-  AppBar,
-  Toolbar,
-  Menu,
-  MenuItem as DropdownItem,
+  Paper,
+  Grid,
 } from "@mui/material";
-
-import { Dashboard } from "@mui/icons-material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { useNavigate } from "react-router-dom";
+import RecruiterDashNav from "../Pages/RecruiterDashNav";
+import axios from "axios";
 
 const JobPostForm = () => {
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    title: "",
+    requirement: "",
+    description: "",
+    experience: "",
+    location: "",
+    companyName: "",
+    status: "Open",
+  });
 
-  // Dropdown ke liye state management
-  const [jobAnchorEl, setJobAnchorEl] = useState(null);
-  const [candidatesAnchorEl, setCandidatesAnchorEl] = useState(null);
-  const [settingsAnchorEl, setSettingsAnchorEl] = useState(null);
-
-  const handleMenuOpen = (event, setAnchor) => {
-    setAnchor(event.currentTarget);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleMenuClose = (setAnchor) => {
-    setAnchor(null);
-  };
-
-  // Dashboard click handler
-  const handleDashboardClick = () => {
-    navigate("/recruiter");
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/recruiter/job",
+        formData
+      );
+      alert("Job Posted Successfully!");
+      console.log(response.data);
+      setFormData({
+        title: "",
+        requirement: "",
+        description: "",
+        experience: "",
+        location: "",
+        companyName: "",
+        status: "active",
+      });
+    } catch (error) {
+      console.error("Error posting job:", error);
+      alert("Failed to post job.");
+    }
   };
 
   return (
     <>
-      {/* Navbar */}
-      <AppBar position="static" color="primary">
-        <Toolbar sx={{ justifyContent: "flex-start" }}>
-          <Dashboard sx={{ marginRight: 2 }} />
-          <Typography
-            variant="h6"
-            sx={{ marginRight: 4, cursor: "pointer" }}
-            onClick={handleDashboardClick}
-          >
-            Dashboard
-          </Typography>
+      <RecruiterDashNav />
 
-          {/* Jobs Dropdown */}
-          <Button
-            color="inherit"
-            onClick={(e) => handleMenuOpen(e, setJobAnchorEl)}
-            endIcon={<ArrowDropDownIcon />}
-          >
-            Jobs
-          </Button>
-          <Menu
-            anchorEl={jobAnchorEl}
-            open={Boolean(jobAnchorEl)}
-            onClose={() => handleMenuClose(setJobAnchorEl)}
-          >
-            <DropdownItem onClick={() => handleMenuClose(setJobAnchorEl)}>
-              Add New Job
-            </DropdownItem>
-            <DropdownItem onClick={() => handleMenuClose(setJobAnchorEl)}>
-              Manage Job
-            </DropdownItem>
-          </Menu>
-
-          {/* Candidates Dropdown */}
-          <Button
-            color="inherit"
-            onClick={(e) => handleMenuOpen(e, setCandidatesAnchorEl)}
-            endIcon={<ArrowDropDownIcon />}
-          >
-            Candidates
-          </Button>
-          <Menu
-            anchorEl={candidatesAnchorEl}
-            open={Boolean(candidatesAnchorEl)}
-            onClose={() => handleMenuClose(setCandidatesAnchorEl)}
-          >
-            <DropdownItem onClick={() => handleMenuClose(setCandidatesAnchorEl)}>
-              New Application
-            </DropdownItem>
-            <DropdownItem onClick={() => handleMenuClose(setCandidatesAnchorEl)}>
-              Manage Candidates
-            </DropdownItem>
-          </Menu>
-
-          {/* Settings Dropdown */}
-          <Button
-            color="inherit"
-            onClick={(e) => handleMenuOpen(e, setSettingsAnchorEl)}
-            endIcon={<ArrowDropDownIcon />}
-          >
-            Settings
-          </Button>
-          <Menu
-            anchorEl={settingsAnchorEl}
-            open={Boolean(settingsAnchorEl)}
-            onClose={() => handleMenuClose(setSettingsAnchorEl)}
-          >
-            <DropdownItem onClick={() => handleMenuClose(setSettingsAnchorEl)}>
-              Remove Account
-            </DropdownItem>
-          </Menu>
-        </Toolbar>
-      </AppBar>
-
-      {/* Form Section */}
+      {/* Main Layout */}
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
-          padding: "40px",
+          alignItems: "center",
+          minHeight: "100vh",
+          padding: "20px",
           background: "#F8F8F8",
         }}
       >
-        <Box
+        <Paper
+          elevation={3}
           sx={{
-            width: "800px",
-            background: "white",
-            borderRadius: "10px",
-            boxShadow: 3,
+            width: "100%",
+            maxWidth: "1000px",
             padding: "20px",
+            borderRadius: "10px",
+            background: "#fff",
           }}
         >
-          <Typography
-            variant="h6"
-            sx={{
-              background: "#E7F0FA",
-              padding: "10px",
-              borderRadius: "5px",
-            }}
-          >
-            Job Detail
-          </Typography>
+          <Grid container spacing={3}>
+            {/* Left Sidebar (Responsive) */}
+            <Grid item xs={12} md={4}>
+              <Box
+                sx={{
+                  padding: "20px",
+                  background: "#E7F0FA",
+                  borderRadius: "10px",
+                  textAlign: "center",
+                }}
+              >
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                  Job Posting Tips
+                </Typography>
+                <Typography variant="body2">
+                  ✅ Ensure the job title is clear.<br />
+                  ✅ Mention key requirements properly.<br />
+                  ✅ Provide a detailed job description.<br />
+                  ✅ Specify experience levels & location.
+                </Typography>
+              </Box>
+            </Grid>
 
-          <Box sx={{ display: "flex", gap: "10px", marginTop: "15px" }}>
-            <TextField
-              fullWidth
-              label="Job Title/Role"
-              placeholder="Enter a Job Title / Role"
-            />
-            <TextField
-              fullWidth
-              label="No. of Openings"
-              placeholder="Enter Number"
-              type="number"
-            />
-          </Box>
+            {/* Job Post Form */}
+            <Grid item xs={12} md={8}>
+              <Box>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    background: "#E7F0FA",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    mb: 2,
+                    textAlign: "center",
+                  }}
+                >
+                  Job Details
+                </Typography>
 
-          <Box sx={{ display: "flex", gap: "10px", marginTop: "15px" }}>
-            <TextField fullWidth select label="Min Experience">
-              <MenuItem value="0">0 Years</MenuItem>
-              <MenuItem value="1">1 Year</MenuItem>
-              <MenuItem value="2">2+ Years</MenuItem>
-            </TextField>
-            <TextField fullWidth select label="Max Experience">
-              <MenuItem value="2">2 Years</MenuItem>
-              <MenuItem value="5">5 Years</MenuItem>
-              <MenuItem value="10">10+ Years</MenuItem>
-            </TextField>
-            <TextField fullWidth select label="Gender Preference">
-              <MenuItem value="any">Any</MenuItem>
-              <MenuItem value="male">Male</MenuItem>
-              <MenuItem value="female">Female</MenuItem>
-            </TextField>
-          </Box>
+                <TextField
+                  fullWidth
+                  label="Job Title"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  margin="normal"
+                />
 
-          <FormControlLabel
-            control={<Checkbox />}
-            label="Hide Salary from jobseekers"
-            sx={{ marginTop: "10px" }}
-          />
+                <TextField
+                  fullWidth
+                  label="Job Requirement"
+                  name="requirement"
+                  value={formData.requirement}
+                  onChange={handleChange}
+                  margin="normal"
+                />
 
-          <TextField
-            fullWidth
-            multiline
-            rows={4}
-            label="Job Description"
-            placeholder="Please specify job requirements, skills, training, etc."
-            sx={{ marginTop: "15px" }}
-          />
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={4}
+                  label="Job Description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  margin="normal"
+                />
 
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              marginTop: "20px",
-              backgroundColor: "#007bff",
-              "&:hover": { backgroundColor: "#0056b3" },
-            }}
-          >
-            Continue →
-          </Button>
-        </Box>
+                <TextField
+                  fullWidth
+                  label="Experience"
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  margin="normal"
+                />
+
+                <TextField
+                  fullWidth
+                  label="Location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  margin="normal"
+                />
+
+                <TextField
+                  fullWidth
+                  label="Company Name"
+                  name="companyName"
+                  value={formData.companyName}
+                  onChange={handleChange}
+                  margin="normal"
+                />
+
+                <TextField
+                  fullWidth
+                  select
+                  label="Status"
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  margin="normal"
+                >
+                  <MenuItem value="Open">Active</MenuItem>
+                  <MenuItem value="Closed">Closed</MenuItem>
+                </TextField>
+
+                <Button
+                  variant="contained"
+                  fullWidth
+                  sx={{ mt: 2, backgroundColor: "#007bff" }}
+                  onClick={handleSubmit}
+                >
+                  Submit Job Post
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </Paper>
       </Box>
     </>
   );

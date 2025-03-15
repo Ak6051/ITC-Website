@@ -95,31 +95,32 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+
 const testimonials = [
   {
-    name: "John Doe",
+    name: "Aether Industries",
     feedback: "This platform helped me find the best job opportunities. Highly recommended!",
-    image: "https://randomuser.me/api/portraits/men/32.jpg"
+    image: "aether.jpg"
   },
   {
-    name: "Jane Smith",
+    name: "Apple Creations",
     feedback: "The recruitment process was seamless and professional. Thank you!",
-    image: "https://randomuser.me/api/portraits/women/44.jpg"
+    image: "applecr.JPG"
   },
   {
-    name: "Michael Johnson",
+    name: "Balaji Fashion",
     feedback: "I was able to find my dream job in no time. Exceptional service!",
-    image: "https://randomuser.me/api/portraits/men/41.jpg"
+    image: "balaji.JPG"
   },
   {
-    name: "Emily Davis",
+    name: "OrangeTrend7",
     feedback: "Fantastic customer support and great job listings!",
-    image: "https://randomuser.me/api/portraits/women/50.jpg"
+    image: "orange.JPG"
   },
   {
-    name: "Robert Brown",
+    name: "Protrack GPS",
     feedback: "I landed my ideal job thanks to this platform. Highly satisfied!",
-    image: "https://randomuser.me/api/portraits/men/55.jpg"
+    image: "protrack.jpg"
   }
 ];
 
@@ -155,7 +156,7 @@ const TestimonialPage = () => {
             <SwiperSlide key={index}>
               <Card
                 sx={{
-                  maxWidth: 345,
+                  maxWidth: 450,
                   margin: "0 auto",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                   transition: "transform 0.3s ease-in-out",
@@ -168,7 +169,7 @@ const TestimonialPage = () => {
                   <Avatar
                     alt={testimonial.name}
                     src={testimonial.image}
-                    sx={{ width: 80, height: 80, margin: "0 auto 10px" }}
+                    sx={{ width: 150, height: 150, margin: "0 auto 10px" }}
                   />
                   <Typography variant="h6" sx={{ color: "#333" }}>
                     {testimonial.name}

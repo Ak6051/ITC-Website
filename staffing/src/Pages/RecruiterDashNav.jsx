@@ -80,7 +80,7 @@ const RecruiterDashNav = () => {
             sx={{ flexGrow: 1, cursor: "pointer", display: { xs: "none", md: "block" } }}
             onClick={handleDashboardClick}
           >
-            Dashboard
+            Recruiter Dashboard
           </Typography>
 
           {/* Hamburger Menu for Mobile */}
@@ -110,7 +110,7 @@ const RecruiterDashNav = () => {
               <DropdownItem onClick={() => navigate("/jobpost")}>
                 Add New Job
               </DropdownItem>
-              <DropdownItem onClick={() => handleMenuClose(setJobAnchorEl)}>
+              <DropdownItem onClick={() =>navigate("/manageJob")}>
                 Manage Job
               </DropdownItem>
             </Menu>
