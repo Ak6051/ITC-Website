@@ -245,7 +245,7 @@ const Step3 = () => {
   const handleSubmit = async () => {
     await saveCandidateData(finalData);
     localStorage.clear();
-    navigate("/");
+    navigate("/candidate-login");
   };
 
   return (

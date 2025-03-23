@@ -238,17 +238,24 @@ export default function RecruiterNavbar() {
       <AppBar
         position="static"
         sx={{
-          backgroundColor: "#fff",
-          color: "#000",
+          backgroundColor: "#132338",
+          color: "#fff",
           boxShadow: "none",
           borderBottom: "1px solid #e0e0e0",
+          zIndex: 1100,
+          marginTop:'-7.5px'
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           {/* Logo */}
-          <Typography variant="h6" noWrap component="div" sx={{ cursor: "pointer" }}>
-            <img src="11.svg" alt="Logo" style={{ width: "150px", height: "auto" }} />
-          </Typography>
+         <Typography
+                     variant="h6"
+                     component="div"
+                     sx={{ flexGrow: 1, cursor: "pointer", marginTop:2 }}
+
+                   >
+                     <img src="24.png" alt="Logo" style={{ width: "200px", height: "auto" }} />
+                   </Typography>
 
           {/* Icons Section */}
           {isMobile ? (
@@ -257,7 +264,7 @@ export default function RecruiterNavbar() {
             </IconButton>
           ) : (
             <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
-              <Typography variant="body1" sx={{ fontWeight: "bold", color: "#000" }}>
+              <Typography variant="body1" sx={{ fontWeight: "bold", color: "#fff" }}>
                 Call Us - +91 9765473214
               </Typography>
 
@@ -303,12 +310,7 @@ export default function RecruiterNavbar() {
                     </ListItemIcon>
                     My Profile
                   </MenuItem>
-                  <MenuItem onClick={() => navigate("/company-profile")}>
-                    <ListItemIcon>
-                      <BusinessIcon />
-                    </ListItemIcon>
-                    Company Profile
-                  </MenuItem>
+              
                   <MenuItem onClick={() => navigate("/change-password")}>
                     <ListItemIcon>
                       <LockIcon />

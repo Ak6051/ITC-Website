@@ -76,6 +76,8 @@ import Step2 from './components/Candidate/St2PersonalDetails';
 import Step3 from './components/Candidate/st3EducationDetsil';
 import JobList from './components/Recruiter.manageJob';
 import ChangePassword from './components/RecruiterPassword';
+import UserDashboard from './components/User-Panel/UserDashboard';
+import JobOpen from './components/JobOpen';
 
 const App = () => {
   return (
@@ -103,6 +105,8 @@ const App = () => {
           <Route path="/st3" element={<Step3 />} />
           <Route path="/change-password" element={<ChangePassword/>} />
           <Route path="/manageJob" element={<JobList/>} />
+          <Route path="/user-panel" element={<UserDashboard />} />
+          <Route path="/open-job" element={<JobOpen />} />
 
 
 

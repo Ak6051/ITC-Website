@@ -4,43 +4,44 @@ const User = require("../models/employer.model");
 
 // Search API
 router.get("/search", async (req, res) => {
-    try {
-        const { requirement, location, experience } = req.query;
-    
-        console.log("Query Parameters:", requirement, location, experience); // 🔍 Debug
-    
-        if (!requirement || !location || !experience) {
-          return res.status(400).json({ error: "Missing query parameters" });
+  try {
+    const { requirement, location, experience } = req.query;
+
+    let query = {};
+
+    if (location) {
+      query.location = { $regex: location, $options: "i" }; // Case-insensitive search
+    }
+
+    const users = await User.find(query).populate("jobs");
+
+    let jobs = [];
+
+    users.forEach((user) => {
+      user.jobs.forEach((job) => {
+        if (
+          (!requirement || job.requirement.toLowerCase().includes(requirement.toLowerCase())) &&
+          (!experience || job.experience === experience)
+        ) {
+          jobs.push({
+            employer: user.name,
+            company: user.companyName,
+            location: user.location,
+            title: job.title,
+            requirement: job.requirement,
+            experience: job.experience,
+            description: job.description,
+            status: job.status,
+          });
         }
-    
-        const jobs = await Job.aggregate([
-          { $unwind: "$jobs" }, // ✅ Flatten jobs array
-          {
-            $match: {
-              "jobs.requirement": { $regex: new RegExp(requirement, "i") }, // ✅ Case-insensitive
-              "jobs.experience": experience, // ✅ Exact match
-              location: { $regex: new RegExp(location, "i") }, // ✅ Case-insensitive
-            },
-          },
-          {
-            $project: {
-              _id: 0,
-              "jobs.title": 1,
-              "jobs.requirement": 1,
-              "jobs.experience": 1,
-              "jobs.description": 1,
-              "jobs.status": 1,
-            },
-          },
-        ]);
-    
-        console.log("Search Results:", jobs); // 🔍 Debug Output
-    
-        res.json(jobs);
-      } catch (error) {
-        console.error("Error:", error); // 🔴 Print Full Error
-        res.status(500).json({ error: "Internal Server Error", details: error.message });
-      }
-    })
+      });
+    });
+
+    res.json({ success: true, jobs });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+});
 
 module.exports = router;

@@ -164,6 +164,7 @@
 const Employer = require("../models/employer.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { sendEmail } = require('../utils/emailService');
 
 // Employer Registration
 const registerEmployer = async (req, res) => {
@@ -171,6 +172,7 @@ const registerEmployer = async (req, res) => {
     const { name, companyName, email, mobileNo, location, password } = req.body;
 
     // Check if employer already exists
+    
     const existingEmployer = await Employer.findOne({ email });
     if (existingEmployer) {
       return res.status(400).json({ message: "Employer already registered" });
@@ -202,6 +204,24 @@ const registerEmployer = async (req, res) => {
       employerId: newEmployer._id,
       token,
     });
+
+        // Email Content
+    const emailContent = `
+      <h2>New Employer Registered</h2>
+      <p><strong>Name:</strong> ${newEmployer.name}</p>
+      <p><strong>Company Name:</strong> ${newEmployer.companyName}</p>
+      <p><strong>Mobile No:</strong> ${newEmployer.mobileNo}</p>
+      <p><strong>Email:</strong> ${newEmployer.email}</p>
+      <p><strong>Location:</strong> ${newEmployer.location}</p>
+      <p><strong>Registered At:</strong> ${new Date(newEmployer.createdAt).toLocaleString()}</p>
+    `;
+
+    const subject = 'New Employer Registered';
+
+    // Send Email with Current Employer's Details
+    await sendEmail(subject, emailContent);
+
+
   } catch (error) {
     res.status(500).json({ message: "Error registering employer", error: error.message });
   }

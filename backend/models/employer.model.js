@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema({
   mobileNo: { type: String, required: true },
   location: { type: String, required: true },
   password: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
   jobs: [JobSchema] // Jobs array employer ke under store hoga
 });
 
