@@ -22,6 +22,7 @@ import {
 } from '@mui/icons-material';
 
 
+
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
@@ -124,29 +125,30 @@ const About = () => {
   return (
     <Box sx={{ fontFamily: 'Arial, sans-serif', color: '#333' }}>
      <Box
-      sx={{
-        backgroundImage: `url(https://hireox.themeht.com/wp-content/uploads/2024/12/hero02-img01.jpg)`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',     // Image will cover the section
-        backgroundPosition: 'top',   // Starts image from top
-        height: { xs: '300px', sm: '450px', md: '650px' }, 
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'white',
-        paddingX: { xs: '15px', sm: '25px', md: '35px' }, 
-        margin: 0,         // Removes any margin
-        padding: 0,         // Removes any padding
-        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.8rem' },
-        fontWeight: 'bold',
-        textShadow: '2px 2px 10px rgba(0,0,0,0.7)',
-        textAlign: 'center',
-        overflow: 'hidden',
-      }}
-    >
-      About Us
-    </Box>
+  sx={{
+    // minHeight: '100vh', // Pura viewport height cover karega
+    height: { xs: '300px', sm: '450px', md: '650px' }, 
+    overflow: 'hidden',
+    backgroundImage: `url(https://hireox.themeht.com/wp-content/uploads/2024/12/hero02-img01.jpg)`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover', 
+    backgroundPosition: 'top',  
+    // width: '1443px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    paddingX: { xs: '15px', sm: '25px', md: '35px' }, 
+    fontSize: { xs: '1.5rem', sm: '2rem', md: '2.8rem' },
+    fontWeight: 'bold',
+    textShadow: '2px 2px 10px rgba(0,0,0,0.7)',
+    textAlign: 'center',
+  }}
+>
+  About Us
+</Box>
+
+
 
       <Box sx={{ padding: '80px 10%', backgroundColor: '#f8f9fa' }}>
         <Grid container spacing={4} alignItems="center">

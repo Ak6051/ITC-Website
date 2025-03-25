@@ -24,35 +24,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-// const loginUser = async (req, res) => {
-//     const { mobile, email, password } = req.body;
-
-//     try {
-//         let user;
-//         if (mobile) {
-//             user = await User.findOne({ mobile });
-//         } else if (email) {
-//             user = await User.findOne({ email });
-//         }
-
-//         if (!user) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-
-//         const isMatch = await bcrypt.compare(password, user.password);
-//         if (!isMatch) {
-//             return res.status(401).json({ message: 'Invalid credentials' });
-//         }
-
-//         // Token generation (optional)
-//         const token = "dummy-token"; // JWT token generate karna ho toh yahan add karo
-
-//         res.status(200).json({ token, message: 'Login successful' });
-//     } catch (error) {
-//         res.status(500).json({ message: 'Server error', error: error.message });
-//     }
-// };
-  
 
 
 const loginUser = async (req, res) => {

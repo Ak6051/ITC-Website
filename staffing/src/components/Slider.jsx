@@ -48,7 +48,7 @@ const HeroSection = () => {
           background: 'rgba(0, 0, 0, 0.4)', // Overlay effect
         }}
       >
-        <h1>Welcome to Our Website</h1>
+        <h1>Connecting Talent With Opportunities.</h1>
       </Box>
     </Box>
   );

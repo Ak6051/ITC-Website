@@ -1,19 +1,4 @@
-// import React from 'react';
-// import { Navigate, Outlet } from 'react-router-dom';
 
-// const EmployerProtectedRoute = () => {
-//   const token = localStorage.getItem("token");
-//   const userType = localStorage.getItem("userType");
-
-//   // Agar token nahi hai ya userType employer nahi hai, toh login page pe bhejo
-//   if (!token || userType !== "employer") {
-//     return <Navigate to="/employer-login" />;
-//   }
-
-//   return <Outlet />;
-// };
-
-// export default EmployerProtectedRoute;
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 

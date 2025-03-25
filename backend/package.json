@@ -24,5 +24,6 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "description": ""
+  "description": "",
+  "devDependencies": {}
 }
