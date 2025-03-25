@@ -26,6 +26,21 @@ const JobOpen = () => {
       };
   return (
     <>
+     <Box
+        sx={{
+          height: '80vh',
+          background: `url(https://hireox.themeht.com/wp-content/uploads/2024/10/hero1-img2.jpg) no-repeat center center/cover`,
+          color: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          p: 4,
+        }}
+      >
+      
+      </Box>
           <Box
         sx={{
           textAlign: "center",

@@ -1,138 +1,131 @@
-// import React from "react";
-// import { Box, Button, Typography, Container, Grid } from "@mui/material";
-// import { motion } from "framer-motion";
-// import { useNavigate } from "react-router-dom";
+// import React, { useEffect, useRef } from 'react';
+// import { Box, Typography, Container, Button } from '@mui/material';
+// import { motion } from 'framer-motion';
+// import { useNavigate } from 'react-router-dom';
+// import {
+//   FaIndustry,
+//   FaBriefcase,
+//   FaUsers,
+//   FaHeartbeat,
+//   FaChartLine,
+//   FaHandHoldingUsd,
+//   FaLaptopCode,
+//   FaShieldAlt,
+// } from 'react-icons/fa';
 
-// const practiceAreas = [
-//   { name: "MANUFACTURING & TECHNOLOGY", link: "/manufacturing" },
-//   { name: "PRIVATE EQUITY", link: "/private-equity" },
-//   { name: "SERVICE / DISTRIBUTION", link: "/service-distribution" },
-//   { name: "LIFE SCIENCES", link: "/life-sciences" },
-//   { name: "ACCOUNTING / FINANCE", link: "/accounting-finance" },
-//   { name: "HEALTHCARE", link: "/healthcare" },
-//   { name: "FINANCIAL SERVICES / BANKING", link: "/financial-services" },
-//   { name: "INSURANCE", link: "/insurance" },
-// ];
+// const services = [
+//   {
+//     id: 'manufacturing-technology',
+//     title: 'Manufacturing & Tech',
+//     icon: <FaIndustry />,
+//     description:
+//       'Streamline your operations with our technology-driven solutions.',
+//   },
+//   {
+//     id: 'service-distribution',
+//     title: 'Service & Distribution',
+//     icon: <FaUsers />,
+//     description: 'Optimize your supply chain with advanced logistics support.',
+//   },
 
-// const PracticeAreas = () => {
-//   const navigate = useNavigate();
+//   {
+//     id: 'accounting-finance',
+//     title: 'Finance & Accounting',
+//     icon: <FaChartLine />,
+//     description: 'Precise financial analysis and reporting services.',
+//   },
 
-//   return (
-//     <Box
-//       sx={{
-//         textAlign: "center",
-//         py: { xs: 4, md: 8 },
-//         background: "#ffffff",
-//         minHeight: "100vh",
-//       }}
-//     >
-//       <Container>
-//         <Typography
-//           variant="h4"
-//           fontWeight={700}
-//           gutterBottom
-//           component={motion.div}
-//           initial={{ opacity: 0, y: -20 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 0.6 }}
-//           sx={{ fontFamily: "serif", fontSize: { xs: "1.8rem", md: "2.5rem" } }}
-//         >
-//           Practice Areas
-//         </Typography>
-//         <Box
-//           sx={{
-//             width: 60,
-//             height: 4,
-//             backgroundColor: "#f4c400",
-//             mx: "auto",
-//             mb: 2,
-//           }}
-//         />
-//         <Typography
-//           variant="body1"
-//           color="text.secondary"
-//           maxWidth={600}
-//           mx="auto"
-//           mb={4}
-//           component={motion.div}
-//           initial={{ opacity: 0 }}
-//           animate={{ opacity: 1 }}
-//           transition={{ duration: 0.8 }}
-//           sx={{ fontFamily: "serif", fontSize: { xs: "0.9rem", md: "1.1rem" }, px: { xs: 2, md: 0 } }}
-//         >
-//           Management Search Corporate professionals know the industries in which
-//           we recruit. We provide you with solid expertise and experience within
-//           the markets we serve.
-//         </Typography>
-//         <Grid container spacing={3} justifyContent="center">
-//           {practiceAreas.map((area, index) => (
-//             <Grid item xs={12} sm={6} md={5} key={index}>
-//               <motion.div
-//                 initial={{ x: 200, opacity: 0 }}
-//                 animate={{ x: 0, opacity: 1 }}
-//                 transition={{ duration: 0.6, delay: index * 0.1 }}
-//                 whileHover={{ scale: 1.05 }}
-//                 whileTap={{ scale: 0.95 }}
-//               >
-//                 <Button
-//                   fullWidth
-//                   variant="contained"
-//                   onClick={() => navigate(area.link)}
-//                   sx={{
-//                     backgroundColor: "rgb(15, 0, 130)", // Active state color
-//                     color: "white",
-//                     fontWeight: 600,
-//                     py: { xs: 1.5, md: 2 },
-//                     border: "3px solid #f4c400",
-//                     fontFamily: "serif",
-//                     fontSize: { xs: "0.8rem", md: "1rem" },
-//                     "&:hover": {
-//                       backgroundColor: "#e0b200",
-//                     },
-//                   }}
-//                 >
-//                   {area.name}
-//                 </Button>
-//               </motion.div>
-//             </Grid>
-//           ))}
-//         </Grid>
-//       </Container>
-//     </Box>
-//   );
-// };
+//   {
+//     id: 'financial-services-banking',
+//     title: 'Banking & Insurance',
+//     icon: <FaHandHoldingUsd />,
+//     description: 'Secure and reliable banking and insurance support.',
+//   },
 
-// export default PracticeAreas;
-// import React from "react";
-// import { Box, Button, Typography, Container, Grid } from "@mui/material";
-// import { motion } from "framer-motion";
-// import { useNavigate } from "react-router-dom";
+//   {
+//     id: 'private-equity',
+//     title: 'Private Equity',
+//     icon: <FaBriefcase />,
+//     description: 'Empower your financial strategies with expert consulting.',
+//   },
 
-// const practiceAreas = [
-//   { name: "MANUFACTURING & TECHNOLOGY", link: "/manufacturing" },
-//   { name: "PRIVATE EQUITY", link: "/private-equity" },
-//   { name: "SERVICE / DISTRIBUTION", link: "/service-distribution" },
-//   { name: "LIFE SCIENCES", link: "/life-sciences" },
-//   { name: "ACCOUNTING / FINANCE", link: "/accounting-finance" },
-//   { name: "HEALTHCARE", link: "/healthcare" },
-//   { name: "FINANCIAL SERVICES / BANKING", link: "/financial-services" },
-//   { name: "INSURANCE", link: "/insurance" },
+//   {
+//     id: 'life-sciences',
+//     title: 'Life Sciences',
+//     icon: <FaHeartbeat />,
+//     description: 'Innovative solutions for healthcare and life sciences.',
+//   },
+
+
+//   {
+//     id: 'healthcare',
+//     title: 'Healthcare',
+//     icon: <FaLaptopCode />,
+//     description: 'The healthcare industry is transforming rapidly as new delivery methods evolve due to consumer demand.',
+//   },
+//   {
+//     id: 'insurance',
+//     title: 'Insurance',
+//     icon: <FaShieldAlt />,
+//     description: 'New players in the insurance industry have brought increased competition.',
+//   },
 // ];
 
 // const OurServices = () => {
 //   const navigate = useNavigate();
+//   const scrollRef = useRef(null);
+
+//   const handleRedirect = (id) => {
+//     navigate(`/practice-areas#${id}`);
+//   };
+
+//   // Auto-scroll effect
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       if (scrollRef.current) {
+//         scrollRef.current.scrollLeft += 350; // Scroll by card width
+//         if (
+//           scrollRef.current.scrollLeft + scrollRef.current.clientWidth >=
+//           scrollRef.current.scrollWidth
+//         ) {
+//           scrollRef.current.scrollLeft = 0; // Reset to the beginning
+//         }
+//       }
+//     }, 3000); // Auto-scroll every 3 seconds
+
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   useEffect(() => {
+//     const scrollContainer = scrollRef.current;
+//     let scrollAmount = 0;
+
+//     const scrollInterval = setInterval(() => {
+//       scrollAmount += 1;  // Adjust the scroll speed
+//       if (scrollContainer) {
+//         scrollContainer.scrollLeft = scrollAmount;
+
+//         // Reset scroll to start when it reaches the end
+//         if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
+//           scrollAmount = 0;
+//         }
+//       }
+//     }, 20); // Scroll speed
+
+//     return () => clearInterval(scrollInterval);
+//   }, []);
+
 
 //   return (
 //     <Box
 //       sx={{
-//         textAlign: "center",
+//         textAlign: 'center',
 //         py: { xs: 6, md: 10 },
-//         background: "linear-gradient(to right,rgb(56, 35, 88),rgb(134, 164, 168))",
-//         minHeight: "50vh",
-//         color: "#f5f5f5",
-//         marginLeft:'-7.8px'
-      
-        
+//         background:
+//           'linear-gradient(to right, rgb(32, 31, 34), rgb(163, 219, 226))',
+//         minHeight: '70vh',
+//         color: '#f5f5f5',
+//         overflow: 'hidden',
 //       }}
 //     >
 //       <Container>
@@ -145,143 +138,239 @@
 //             variant="h4"
 //             fontWeight={700}
 //             gutterBottom
-//             sx={{ fontFamily: "serif", fontSize: { xs: "2rem", md: "2.8rem" } }}
+//             sx={{ fontFamily: 'serif', fontSize: { xs: '2rem', md: '2.8rem' } }}
 //           >
-//             Practice Areas
+//             Our Practice Area
 //           </Typography>
 //         </motion.div>
+
 //         <Box
 //           sx={{
 //             width: 80,
 //             height: 5,
-//             backgroundColor: "#e67e22",
-//             mx: "auto",
-//             mb: 3,
+//             backgroundColor: '#F2BC38',
+//             mx: 'auto',
+//             mb: 4,
 //             borderRadius: 2,
 //           }}
 //         />
+
 //         <Typography
 //           variant="body1"
 //           maxWidth={650}
 //           mx="auto"
 //           mb={5}
-//           sx={{ fontFamily: "serif", fontSize: { xs: "18px", md: "1.2rem" } }}
+//           sx={{ fontFamily: 'serif', fontSize: { xs: '18px', md: '1.2rem' } }}
 //         >
-//           Discover our specialized industry expertise and services.
+//           Explore our wide range of services designed to meet your business
+//           needs.
 //         </Typography>
-//         <Grid container spacing={3} justifyContent="center">
-//           {practiceAreas.map((area, index) => (
-//             <Grid item xs={12} sm={6} md={5} key={index}>
-//               <motion.div
-//                 initial={{ y: 50, opacity: 0 }}
-//                 animate={{ y: 0, opacity: 1 }}
-//                 transition={{ duration: 0.6, delay: index * 0.1 }}
-//                 whileHover={{ scale: 1.05 }}
-//                 whileTap={{ scale: 0.95 }}
-//               >
-//                 <Button
-//                   fullWidth
-//                   variant="contained"
-//                   onClick={() => navigate(area.link)}
-//                   sx={{
-//                     backgroundColor: "#34495e",
-//                     color: "#ecf0f1",
-//                     fontWeight: 600,
-//                     py: { xs: 1.5, md: 2 },
-//                     border: "2px solid #e67e22",
-//                     borderRadius: "12px",
-//                     fontSize: { xs: "0.9rem", md: "1.1rem" },
-//                     transition: "all 0.3s ease-in-out",
-//                     "&:hover": {
-//                       backgroundColor: "#e67e22",
-//                       color: "#ffffff",
-//                       transform: "translateY(-3px)",
-//                     },
-//                   }}
-//                 >
-//                   {area.name}
-//                 </Button>
+
+//         <Box
+//           ref={scrollRef}
+//           sx={{
+//             display: 'flex',
+//             gap: 3,
+//             overflowX: 'auto',
+//             scrollBehavior: 'smooth',
+//             p: 2,
+//             '::-webkit-scrollbar': { display: 'none' }, // Hide scrollbar
+//           }}
+//         >
+//           {services.map((service) => (
+//             <motion.div
+//               key={service.id}
+//               whileHover={{ scale: 1.05 }}
+//               whileTap={{ scale: 0.95 }}
+//               style={{
+//                 minWidth: '300px',
+//                 padding: '20px',
+//                 background: '#fff',
+//                 color: '#2c3e50',
+//                 borderRadius: '12px',
+//                 boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+//                 cursor: 'pointer',
+//                 marginRight: '20px'
+//               }}
+//             >
+//               <motion.div style={{ fontSize: '4rem', color: '#e67e22', marginBottom: '20px' }}>
+//                 {service.icon}
 //               </motion.div>
-//             </Grid>
+//               <Typography variant="h6" fontWeight="bold">{service.title}</Typography>
+//               <Typography variant="body2" sx={{ textAlign: 'center', color: '#7f8c8d' }}>{service.description}</Typography>
+//               <Button
+//                 variant="contained"
+//                 sx={{ mt: 2, background: '#F2BC38', color: '#fff', '&:hover': { background: '#d35400' } }}
+//                 onClick={() => handleRedirect(service.id)}
+//               >
+//                 Learn More
+//               </Button>
+//             </motion.div>
 //           ))}
-//         </Grid>
+//         </Box>
 //       </Container>
 //     </Box>
 //   );
 // };
 
 // export default OurServices;
+import React, { useEffect, useRef } from 'react';
+import { Box, Typography, Container, Button } from '@mui/material';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import {
+  FaIndustry,
+  FaBriefcase,
+  FaUsers,
+  FaHeartbeat,
+  FaChartLine,
+  FaHandHoldingUsd,
+  FaLaptopCode,
+  FaShieldAlt,
+} from 'react-icons/fa';
 
-import React from "react";
-import { Box, Button, Typography, Container, Grid } from "@mui/material";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-
-const practiceAreas = [
-  { name: "MANUFACTURING & TECHNOLOGY", id: "manufacturing-technology" },
-  { name: "PRIVATE EQUITY", id: "private-equity" },
-  { name: "SERVICE / DISTRIBUTION", id: "service-distribution" },
-  { name: "LIFE SCIENCES", id: "life-sciences" },
-  { name: "ACCOUNTING / FINANCE", id: "accounting-finance" },
-  { name: "HEALTHCARE", id: "healthcare" },
-  { name: "FINANCIAL SERVICES / BANKING", id: "financial-services-banking" },
-  { name: "INSURANCE", id: "insurance" },
+const services = [
+  { id: 'manufacturing-technology', title: 'Manufacturing & Tech', icon: <FaIndustry />, description: 'Streamline your operations with our technology-driven solutions.' },
+  { id: 'service-distribution', title: 'Service & Distribution', icon: <FaUsers />, description: 'Optimize your supply chain with advanced logistics support.' },
+  { id: 'accounting-finance', title: 'Finance & Accounting', icon: <FaChartLine />, description: 'Precise financial analysis and reporting services.' },
+  { id: 'financial-services-banking', title: 'Banking & Insurance', icon: <FaHandHoldingUsd />, description: 'Secure and reliable banking and insurance support.' },
+  { id: 'private-equity', title: 'Private Equity', icon: <FaBriefcase />, description: 'Empower your financial strategies with expert consulting.' },
+  { id: 'life-sciences', title: 'Life Sciences', icon: <FaHeartbeat />, description: 'Innovative solutions for healthcare and life sciences.' },
+  { id: 'healthcare', title: 'Healthcare', icon: <FaLaptopCode />, description: 'Healthcare industry is transforming rapidly due to consumer demand.' },
+  { id: 'insurance', title: 'Insurance', icon: <FaShieldAlt />, description: 'New players in the insurance industry have brought increased competition.' },
 ];
 
 const OurServices = () => {
   const navigate = useNavigate();
+  const scrollRef = useRef(null);
+  const scrollSpeed = 5; // Scroll speed (increase for faster scroll)
+
+  const handleRedirect = (id) => {
+    navigate(`/practice-areas#${id}`);
+  };
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let scrollPosition = 0;
+    let direction = 1;
+
+    const scrollAnimation = () => {
+      if (!scrollContainer) return;
+
+      scrollPosition += scrollSpeed * direction;
+
+      if (scrollPosition >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
+        direction = -1;  // Change direction at the end
+      } else if (scrollPosition <= 0) {
+        direction = 1;  // Change direction at the start
+      }
+
+      scrollContainer.scrollLeft = scrollPosition;
+      requestAnimationFrame(scrollAnimation);  // Smooth animation
+    };
+
+    requestAnimationFrame(scrollAnimation);
+
+    return () => cancelAnimationFrame(scrollAnimation);
+  }, []);
 
   return (
     <Box
       sx={{
-        textAlign: "center",
+        textAlign: 'center',
         py: { xs: 6, md: 10 },
-        background: "linear-gradient(to right, rgb(56, 35, 88), rgb(134, 164, 168))",
-        minHeight: "50vh",
-        color: "#f5f5f5",
-        marginLeft: "-7.8px",
+        background: 'linear-gradient(to right, rgb(32, 31, 34), rgb(163, 219, 226))',
+        minHeight: '70vh',
+        color: '#f5f5f5',
+        overflow: 'hidden',
       }}
     >
       <Container>
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <Typography variant="h4" fontWeight={700} gutterBottom sx={{ fontFamily: "serif", fontSize: { xs: "2rem", md: "2.8rem" } }}>
-            Practice Areas
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Typography
+            variant="h4"
+            fontWeight={700}
+            gutterBottom
+            sx={{ fontFamily: 'serif', fontSize: { xs: '2rem', md: '2.8rem' } }}
+          >
+            Our Practice Area
           </Typography>
         </motion.div>
-        <Box sx={{ width: 80, height: 5, backgroundColor: "#e67e22", mx: "auto", mb: 3, borderRadius: 2 }} />
-        <Typography variant="body1" maxWidth={650} mx="auto" mb={5} sx={{ fontFamily: "serif", fontSize: { xs: "18px", md: "1.2rem" } }}>
-          Discover our specialized industry expertise and services.
+
+        <Box
+          sx={{
+            width: 80,
+            height: 5,
+            backgroundColor: '#F2BC38',
+            mx: 'auto',
+            mb: 4,
+            borderRadius: 2,
+          }}
+        />
+
+        <Typography
+          variant="body1"
+          maxWidth={650}
+          mx="auto"
+          mb={5}
+          sx={{ fontFamily: 'serif', fontSize: { xs: '18px', md: '1.2rem' } }}
+        >
+          Explore our wide range of services designed to meet your business needs.
         </Typography>
-        <Grid container spacing={3} justifyContent="center">
-          {practiceAreas.map((area, index) => (
-            <Grid item xs={12} sm={6} md={5} key={index}>
-              <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6, delay: index * 0.1 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  onClick={() => navigate(`/practice-areas#${area.id}`)} // Navigate with hash
-                  sx={{
-                    backgroundColor: "#34495e",
-                    color: "#ecf0f1",
-                    fontWeight: 600,
-                    py: { xs: 1.5, md: 2 },
-                    border: "2px solid #e67e22",
-                    borderRadius: "12px",
-                    fontSize: { xs: "0.9rem", md: "1.1rem" },
-                    transition: "all 0.3s ease-in-out",
-                    "&:hover": {
-                      backgroundColor: "#e67e22",
-                      color: "#ffffff",
-                      transform: "translateY(-3px)",
-                    },
-                  }}
-                >
-                  {area.name}
-                </Button>
+
+        <Box
+          ref={scrollRef}
+          sx={{
+            display: 'flex',
+            gap: 3,
+            overflowX: 'auto',
+            scrollBehavior: 'smooth',
+            p: 2,
+            '::-webkit-scrollbar': { display: 'none' }, // Hide scrollbar
+            scrollSnapType: 'x mandatory',
+            width: '100%',
+          }}
+        >
+          {services.map((service) => (
+            <motion.div
+              key={service.id}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                minWidth: '300px',
+                padding: '20px',
+                background: '#fff',
+                color: '#2c3e50',
+                borderRadius: '12px',
+                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+                cursor: 'pointer',
+                scrollSnapAlign: 'start',
+                marginRight: '20px'
+              }}
+            >
+              <motion.div style={{ fontSize: '4rem', color: '#e67e22', marginBottom: '20px' }}>
+                {service.icon}
               </motion.div>
-            </Grid>
+              <Typography variant="h6" fontWeight="bold">{service.title}</Typography>
+              <Typography variant="body2" sx={{ textAlign: 'center', color: '#7f8c8d' }}>
+                {service.description}
+              </Typography>
+              <Button
+                variant="contained"
+                sx={{ mt: 2, background: '#F2BC38', color: '#fff', '&:hover': { background: '#d35400' } }}
+                onClick={() => handleRedirect(service.id)}
+              >
+                Learn More
+              </Button>
+            </motion.div>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );

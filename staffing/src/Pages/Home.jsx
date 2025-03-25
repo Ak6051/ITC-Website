@@ -341,8 +341,62 @@
 // };
 
 // export default Home;
+// import React from "react";
+// import { Box, Typography, useMediaQuery } from "@mui/material";
+// import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+// import Slider from '../components/Slider';
+// import PlacementConsultants from '../components/PlacementConsultants';
+// import JobGrid from '../components/JobGrid';
+// import TestimonialPage from '../components/TestimonialPage';
+// import VideoSection from '../components/VideoSection';
+// import OurCoreValue from '../components/OurCoreValue';
+// import PracticeAreas from '../components/OurServices';
+
+// const Home = () => {
+//   const isMobile = useMediaQuery("(max-width:600px)");
+
+//   return (
+//     <>
+//       <Slider />
+//       <OurCoreValue />
+//       {/* <PlacementConsultants /> */}
+//       <PracticeAreas />
+//       <VideoSection />
+//       <TestimonialPage />
+
+//       {/* WhatsApp Floating Button */}
+//       <Box
+//         sx={{
+//           position: "fixed",
+//           bottom: isMobile ? "10px" : "20px",
+//           right: isMobile ? "10px" : "40px",
+//           zIndex: 1000,
+//           display: "flex",
+//           alignItems: "center",
+//           gap: 1,
+//           background: "#25D366",
+//           color: "#fff",
+//           borderRadius: "50px",
+//           padding: isMobile ? "8px 12px" : "12px 20px",
+//           boxShadow: 3,
+//           cursor: "pointer",
+//           transition: "all 0.3s ease",
+//           "&:hover": { background: "#1ebe57" },
+//           marginRight:"50px",
+//           marginBottom:"20px"
+//         }}
+//         onClick={() => window.open("https://wa.me/919876543210", "_blank")}
+//       >
+//         <WhatsAppIcon sx={{ fontSize: isMobile ? 24 : 30 }} />
+//         {!isMobile && <Typography sx={{ fontWeight: "bold" }}>Hello</Typography>}
+//       </Box>
+//     </>
+//   );
+// };
+
+// export default Home;
 import React from "react";
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Typography, useMediaQuery, Button } from "@mui/material";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Slider from '../components/Slider';
 import PlacementConsultants from '../components/PlacementConsultants';
@@ -355,11 +409,44 @@ import PracticeAreas from '../components/OurServices';
 const Home = () => {
   const isMobile = useMediaQuery("(max-width:600px)");
 
+  // PDF Download Handler
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = "/brochure.pdf";    // 👈 PDF ka path
+    link.download = "Company_Brochure.pdf";
+    link.click();
+  };
+
   return (
     <>
+      {/* Brochure Section */}
+      <Box
+        sx={{
+          position: "fixed",
+          top: "50%",
+          left: 0,
+          transform: "translateY(-50%)",
+          background: "#FF9800",
+          color: "#fff",
+          padding: "15px 20px",
+          borderRadius: "0 10px 10px 0",
+          boxShadow: "2px 2px 10px rgba(0,0,0,0.1)",
+          zIndex: 1000,
+          cursor: "pointer",
+          transition: "all 0.3s ease",
+          "&:hover": {
+            background: "#f57c00"
+          }
+        }}
+        onClick={handleDownload}
+      >
+        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+          📄 Download Brochure
+        </Typography>
+      </Box>
+
       <Slider />
       <OurCoreValue />
-      <PlacementConsultants />
       <PracticeAreas />
       <VideoSection />
       <TestimonialPage />
@@ -382,8 +469,8 @@ const Home = () => {
           cursor: "pointer",
           transition: "all 0.3s ease",
           "&:hover": { background: "#1ebe57" },
-          marginRight:"50px",
-          marginBottom:"20px"
+          marginRight: "50px",
+          marginBottom: "20px"
         }}
         onClick={() => window.open("https://wa.me/919876543210", "_blank")}
       >

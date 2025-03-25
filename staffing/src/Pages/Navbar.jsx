@@ -617,6 +617,21 @@ export default function PrimarySearchAppBar() {
             <ListItemText primary="Contact Us" />
           </ListItem>
           <Divider />
+          <ListItem button onClick={() => navigate("/open-job")}>
+            <ListItemText primary=" Job Opening" />
+          </ListItem>
+          <ListItem button onClick={() => navigate("/candidate-login")}>
+            <ListItemText primary=" Candidate Login" />
+          </ListItem>
+          <ListItem button onClick={() => navigate("/employer-login")}>
+            <ListItemText primary=" Employer Login" />
+          </ListItem>
+          <ListItem button onClick={() => navigate("/login")}>
+            <ListItemText primary=" Recruiter Login" />
+          </ListItem>
+
+          <Divider />
+
           <ListItem button onClick={(e) => handleDropdownOpen(e, "practice")}>
             <ListItemText primary="Practice Areas" />
           </ListItem>
