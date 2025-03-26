@@ -26,6 +26,7 @@ import {
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { Navigate } from 'react-router-dom';
 
 const advantages = [
   {
@@ -129,7 +130,7 @@ const About = () => {
     // minHeight: '100vh', // Pura viewport height cover karega
     height: { xs: '300px', sm: '450px', md: '650px' }, 
     overflow: 'hidden',
-    backgroundImage: `url(https://hireox.themeht.com/wp-content/uploads/2024/12/hero02-img01.jpg)`,
+    backgroundImage: `url(37.jpg)`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover', 
     backgroundPosition: 'top',  
@@ -155,7 +156,7 @@ const About = () => {
           {/* Image Section */}
           <Grid item xs={12} md={6}>
             <img
-              src="https://hireox.themeht.com/wp-content/uploads/2024/10/section-img01.jpg"
+              src="about.jpg"
               alt="HR Solution"
               style={{ width: '100%', borderRadius: '12px' }}
             />
@@ -256,7 +257,8 @@ const About = () => {
                 padding: '10px 25px',
                 '&:hover': { backgroundColor: '#0056b3' },
               }}
-              endIcon={<ArrowForwardIcon />}
+              endIcon={<ArrowForwardIcon />} 
+            
             >
               CONTACT US
             </Button>
@@ -368,17 +370,35 @@ const About = () => {
               md={4}
               sx={{ display: 'flex', justifyContent: 'flex-start' }}
             >
-              <Avatar
-                src="3.jpg" // Tumhara image path
+              {/* <Avatar
+                src="Leader.png" // Tumhara image path
                 alt="Sangita Butani"
                 sx={{
-                  width: 280,
-                  height: 280,
+                  width: 370,
+                  height: 380,                
                   border: '4px solid white',
                   boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
                   ml: { md: -15 }, // Image ko aur left shift kiya
                 }}
-              />
+              /> */}
+              <Avatar
+  src="leader1.jpg"
+  alt="Sangita Butani"
+  sx={{
+    width: 320,
+    height: 385,
+    border: '4px solid white',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
+    ml: { md: -15 },
+    img: {
+      marginTop:"70px",
+      height: '450px',
+      width:"490px",  // Adjust internal height
+      objectFit: 'cover', // Ensures it fills the space properly
+    },
+  }}
+/>
+
             </Grid>
 
             {/* Right Side Full Information */}

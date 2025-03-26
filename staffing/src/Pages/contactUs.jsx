@@ -11,9 +11,9 @@ const ContactUs = () => {
       {/* Banner Section */}
       <Box
         sx={{
-          width: "100vw",
+          width: "99vw",
           height: { xs: "250px", md: "550px" },
-          backgroundImage: `url(https://hireox.themeht.com/wp-content/uploads/2024/12/hero02-img01.jpg)`,
+          backgroundImage: `url(https://img.freepik.com/free-photo/contact-us-communication-support-service-assistance-concept_53876-128103.jpg?t=st=1743012823~exp=1743016423~hmac=672d05e4e47bf187b718dc1a81c8e3c988698b5b0d7cc93099ac631a1119e535&w=1380)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -26,16 +26,7 @@ const ContactUs = () => {
           textAlign: "center",
         }}
       >
-        <Typography
-          variant="h3"
-          sx={{
-            color: "#fff",
-            fontWeight: "bold",
-            textShadow: "2px 2px 8px rgba(0,0,0,0.5)",
-          }}
-        >
-          Contact Us
-        </Typography>
+     
       </Box>
       <Box
     sx={{
@@ -91,7 +82,7 @@ const ContactUs = () => {
               Let's Collaborate!
             </Typography>
             <Typography variant="body1" color="textSecondary" sx={{ mb: 3 }}>
-              Office: Sumul Dairy Rd, Shanti Niketan Society, Patel Nagar, Surat, Gujarat 395006
+              Office: 123, Mahek Icon, Sumul Dairy Road, Near Railway Station,Near Railway Station, Surat -395004
             </Typography>
 
             <Grid container spacing={2}>
@@ -169,7 +160,7 @@ const ContactUs = () => {
                   VIEW ON MAP →
                 </Typography>
                 <Box sx={{ mt: 2, p: 2, bgcolor: "#F5FAFA", borderRadius: "8px" }}>
-                Sumul Dairy Rd, Shanti Niketan Society, Patel Nagar, Surat, Gujarat 395006
+                123, Mahek Icon, Sumul Dairy Road, Near Railway Station,Near Railway Station, Surat -395004
                 </Box>
               </CardContent>
             </Card>

@@ -1,23 +1,16 @@
-// const express = require('express');
-// const { registerUser , loginUser } = require('../controllers/recruiter.controller');
 
-// const router = express.Router();
-
-// // Register Route
-// router.post('/recruiter-register', registerUser);
-// router.post('/recruiter-login', loginUser);
-
-// module.exports = router;
 const express = require('express');
 const JobPost = require("../models/recruiterjobpost.modal");
 
-const { registerUser, loginUser } = require('../controllers/recruiter.controller');
+const { registerUser, loginUser,forgotPassword , resetPassword} = require('../controllers/recruiter.controller');
 const verifyToken = require('../middleware/recruiter.middleware'); // Import middleware
 
 const router = express.Router();
 
 router.post('/recruiter-register', registerUser);
 router.post('/recruiter-login', loginUser);
+router.post('/forgot-password', forgotPassword);  // OTP generate and send email
+router.post('/reset-password', resetPassword);    // Reset password with OTP
 
 // Protect this route with verifyToken middleware
 router.get('/protected-route', verifyToken, (req, res) => {

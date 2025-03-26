@@ -9,6 +9,7 @@ import TestimonialPage from '../components/TestimonialPage';
 import VideoSection from '../components/VideoSection';
 import OurCoreValue from '../components/OurCoreValue';
 import PracticeAreas from '../components/OurServices';
+import WhoWeAreSection from "./OurMission";
 
 const Home = () => {
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -56,6 +57,7 @@ const Home = () => {
       </Box>
 
       <Slider />
+      <WhoWeAreSection/>
       <OurCoreValue />
       <PracticeAreas />
       <VideoSection />
@@ -82,7 +84,7 @@ const Home = () => {
           marginRight: "50px",
           marginBottom: "20px"
         }}
-        onClick={() => window.open("https://wa.me/919876543210", "_blank")}
+        onClick={() => window.open("https://wa.me/919904501115", "_blank")}
       >
         <WhatsAppIcon sx={{ fontSize: isMobile ? 24 : 30 }} />
         {!isMobile && <Typography sx={{ fontWeight: "bold" }}>Hello</Typography>}

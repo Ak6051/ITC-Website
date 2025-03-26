@@ -84,21 +84,21 @@ export default function PrimarySearchAppBar() {
               flexGrow: 1,
             }}
           >
-                     <Button onClick={() => navigate("/about")} color="inherit"  sx={{ textTransform: "none" , fontSize:"1.0rem"}}>
+                     <Button onClick={() => navigate("/about")} color="inherit"  sx={{ textTransform: "none" , fontSize:"1.1rem"}}>
                About Us
              </Button>
-            <Button onClick={() => navigate("/service")} color="inherit" sx={{ textTransform: "none" ,fontSize:"1.0rem"}}>
+            <Button onClick={() => navigate("/service")} color="inherit" sx={{ textTransform: "none" ,fontSize:"1.1rem"}}>
               Services             </Button>
-             <Button onClick={() => navigate("/open-job")} color="inherit" sx={{ textTransform: "none", fontSize:"1.0rem" }}>
+             <Button onClick={() => navigate("/open-job")} color="inherit" sx={{ textTransform: "none", fontSize:"1.1rem" }}>
                Job Opening
              </Button>
-             <Button onClick={() => navigate("/candidate-login")} color="inherit" sx={{ textTransform: "none" ,fontSize:"1.0rem"}}>
+             <Button onClick={() => navigate("/candidate-login")} color="inherit" sx={{ textTransform: "none" ,fontSize:"1.1rem"}}>
                Candidate Login
             </Button>
-             <Button onClick={() => navigate("/employer-login")} color="inherit" sx={{ textTransform: "none",fontSize:"1.0rem" }}>
+             <Button onClick={() => navigate("/employer-login")} color="inherit" sx={{ textTransform: "none",fontSize:"1.1rem" }}>
                Employer
             </Button>
-             <Button onClick={() => navigate("/login")} color="inherit" sx={{ textTransform: "none",fontSize:"1.0rem" }}>
+             <Button onClick={() => navigate("/login")} color="inherit" sx={{ textTransform: "none",fontSize:"1.1rem" }}>
               Recruiter
             </Button>
 
@@ -106,7 +106,7 @@ export default function PrimarySearchAppBar() {
               color="inherit"
               onClick={(e) => handleDropdownOpen(e, "practice")}
               endIcon={<ArrowDropDownIcon />}
-              sx={{ textTransform: "none", fontSize: "1.0rem" }}
+              sx={{ textTransform: "none", fontSize: "1.1rem" }}
             >
               Practice Areas
             </Button>
@@ -133,7 +133,7 @@ export default function PrimarySearchAppBar() {
                 </MenuItem>
               ))}
             </Menu>
-            <Button onClick={() => navigate("/contactUs")} color="inherit" sx={{ textTransform: "none" }}>
+            <Button onClick={() => navigate("/contactUs")} color="inherit" sx={{ textTransform: "none",fontSize:"1.1rem" }}>
               Contact Us
           </Button>
           </Box>

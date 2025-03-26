@@ -146,14 +146,14 @@ const RecruiterLogin = () => {
                                 {loginMode === 'mobile' ? 'Login with Email' : 'Login with Mobile Number'}
                             </Button>
                             <Typography align="center" mt={2} sx={{ fontSize: '0.9rem' }}>
-                                Don't have an account?{' '}
-                                <Link href="/register" sx={{
+                                forgot your password?{' '}
+                                <Link href="/forgot-password" sx={{
                                     color: '#2C5364',
                                     fontWeight: 'bold',
                                     textDecoration: 'none',
                                     '&:hover': { textDecoration: 'underline' }
                                 }}>
-                                    Create Account
+                                    Forgot Password
                                 </Link>
                             </Typography>
                         </Paper>

@@ -29,6 +29,11 @@ import JobList from './components/Recruiter.manageJob';
 import ChangePassword from './components/RecruiterPassword';
 import UserDashboard from './components/User-Panel/UserDashboard';
 import JobOpen from './components/JobOpen';
+import ForgotPassword from './components/Recruiter/ForgotPassword';
+import ResetPassword from './components/Recruiter/ResetPassword';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 const App = () => {
   return (
@@ -58,6 +63,8 @@ const App = () => {
           <Route path="/manageJob" element={<JobList/>} />
           <Route path="/user-panel" element={<UserDashboard />} />
           <Route path="/open-job" element={<JobOpen />} />
+          <Route path="/forgot-password" element={<ForgotPassword/>} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
 
 
@@ -76,6 +83,20 @@ const App = () => {
           <Route path="*" element={<h2>Page Not Found</h2>} />
         </Routes>
       </Layout>
+
+         {/* Toast Notifications */}
+         <ToastContainer 
+          position="top-right" 
+          autoClose={3000} 
+          hideProgressBar={false} 
+          newestOnTop={false} 
+          closeOnClick 
+          rtl={false} 
+          pauseOnFocusLoss 
+          draggable 
+          pauseOnHover 
+          theme="colored" 
+        />
     </Router>
   );
 };

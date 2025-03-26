@@ -29,7 +29,7 @@ const JobOpen = () => {
      <Box
         sx={{
           height: '80vh',
-          background: `url(https://hireox.themeht.com/wp-content/uploads/2024/10/hero1-img2.jpg) no-repeat center center/cover`,
+          background: `url(43.jpg) no-repeat center center/cover`,
           color: '#fff',
           display: 'flex',
           flexDirection: 'column',

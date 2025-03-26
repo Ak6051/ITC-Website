@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Container, Typography, Box, Grid, Divider ,Paper,Button, Card , CardContent , List, ListItem, ListItemIcon, ListItemText} from '@mui/material';
+import { Container, Typography, Box, Grid, Divider ,Paper,Button, Card , CardContent , CardMedia,List, ListItem, ListItemIcon, ListItemText} from '@mui/material';
 import { Link as ScrollLink, Element } from 'react-scroll';
 import { styled } from '@mui/system';
 import AssignmentIcon from "@mui/icons-material/Assignment";
@@ -12,6 +12,8 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import LoopIcon from "@mui/icons-material/Loop";
 import { motion } from "framer-motion";  // For subtle animations
 import { CheckCircleOutline } from '@mui/icons-material';
+import {  School, Group, VerifiedUser, WorkspacePremium } from "@mui/icons-material";
+import { Groups, Psychology, Handshake, Insights,  Leaderboard } from "@mui/icons-material";
 
 
 // 🔥 Hero Section (Background Image)
@@ -19,7 +21,7 @@ const HeroSection = () => (
   <Box
     sx={{
       height: '80vh',
-      background: `url(https://hireox.themeht.com/wp-content/uploads/2024/10/hero01-img02.jpg) no-repeat center center/cover`,
+      background: `url(39.jpg) no-repeat center center/cover`,
       color: '#fff',
       display: 'flex',
       flexDirection: 'column',
@@ -38,82 +40,110 @@ const HeroSection = () => (
 
 // 🛠️ Styled Service Box
 const ServiceBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '20px',
-  padding: '30px 0',
-  cursor: 'pointer',
-  transition: '0.3s',
-  '&:hover': {
-    transform: 'translateX(10px)',
-    '& .text': {
-      color: '#f0b90b',
-      fontWeight: 'bold',
-      letterSpacing: '1.5px',
+  display: "flex",
+  alignItems: "center",
+  gap: "20px",
+  padding: "30px 0",
+  cursor: "pointer",
+  transition: "0.3s",
+  "&:hover": {
+    transform: "translateX(10px)",
+    "& .text": {
+      color: "#f0b90b",
+      fontWeight: "bold",
+      letterSpacing: "1.5px",
     },
   },
 }));
 
 // 🚀 Services Section with Smooth Scrolling
 const ServicesSection = () => (
-  <Box sx={{ backgroundColor: '#0f4c5c', color: '#fff', minHeight: '60vh', padding: '50px' }}>
-  <Container>
-    <Grid container spacing={4} alignItems="center">
-      
-      {/* Left Side: Content */}
-      <Grid item xs={12} md={6}>
-        <Typography variant="h3" sx={{ color: '#f0b90b', mb: 5 , textAlign:'center', ml:35}}>
-          Our Services
-        </Typography>
+  <Box
+    sx={{
+      backgroundColor: "#0f4c5c",
+      color: "#fff",
+      minHeight: "60vh",
+      padding: { xs: "30px", md: "50px" }, // Responsive padding
+    }}
+  >
+    <Container>
+      <Grid
+        container
+        spacing={4}
+        alignItems="center"
+        direction={{ xs: "column-reverse", md: "row" }} // Image below content on mobile
+      >
+        {/* Left Side: Content */}
+        <Grid item xs={12} md={6}>
+          <Typography
+            variant="h3"
+            sx={{
+              color: "#f0b90b",
+              mb: 5,
+              textAlign: { xs: "center", md: "left" }, // Center text on mobile
+            }}
+          >
+            Our Services
+          </Typography>
 
-        {[
-          { id: 'recruiter-service', name: 'RECRUITER SERVICE' },
-          { id: 'executive-search', name: 'EXECUTIVE SEARCH' },
-          { id: 'employee-training', name: 'EMPLOYEE TRAINING' },
-          { id: 'team-leadership', name: 'TEAM LEADERSHIP' }
-        ].map((service, index) => (
-          <ScrollLink key={index} to={service.id} smooth={true} duration={500}>
-            <ServiceBox>
-              <Typography sx={{ fontSize: '18px', color: '#aaa' }}>{`0${index + 1}`}</Typography>
-              <Typography className="text" sx={{ fontSize: '24px', transition: '0.3s' }}>
-                {service.name}
-              </Typography>
-            </ServiceBox>
-          </ScrollLink>
-        ))}
-      </Grid>
+          {[
+            { id: "recruiter-service", name: "RECRUITER SERVICE" },
+            { id: "executive-search", name: "EXECUTIVE SEARCH" },
+            { id: "employee-training", name: "EMPLOYEE TRAINING" },
+            { id: "team-leadership", name: "TEAM LEADERSHIP" },
+          ].map((service, index) => (
+            <ScrollLink key={index} to={service.id} smooth={true} duration={500}>
+              <ServiceBox>
+                <Typography sx={{ fontSize: "18px", color: "#aaa" }}>
+                  {`0${index + 1}`}
+                </Typography>
+                <Typography
+                  className="text"
+                  sx={{ fontSize: "24px", transition: "0.3s" }}
+                >
+                  {service.name}
+                </Typography>
+              </ServiceBox>
+            </ScrollLink>
+          ))}
+        </Grid>
 
-      {/* Right Side: Image */}
-      <Grid item xs={12} md={6}>
-        <Box
-          component="img"
-          src="https://hireox.themeht.com/wp-content/uploads/2024/12/hero02-img02.jpg"
-          alt="Our Service"
-          sx={{
-            width: '85vh',
-            height: '100%',
-            minHeight:'45vh',
-            marginTop: '110px',
-            objectFit: 'cover',
-            borderRadius: '12px',
-            boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-          }}
-        />
+        {/* Right Side: Image */}
+        <Grid item xs={12} md={6}>
+          <Box
+            component="img"
+            src="41.jpg"
+            alt="Our Service"
+            sx={{
+              width: "100%",
+              maxHeight: { xs: "300px", md: "450px" }, // Adjust image size responsively
+              objectFit: "cover",
+              borderRadius: "12px",
+              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
+              marginTop: { xs: "20px", md: "0" }, // Add margin on mobile
+            }}
+          />
+        </Grid>
       </Grid>
-    </Grid>
-  </Container>
-</Box>
+    </Container>
+  </Box>
 );
 
 // ✅ Individual Service Details Section
 const ServiceDetail = ({ id, title, description, children }) => (
   <Element name={id}>
-    <Box sx={{ py: 6, px: 4, backgroundColor: '#f4f4f4', minHeight: '70vh' }}>
+    <Box sx={{ py: 6, px: 4, backgroundColor: "#f4f4f4", minHeight: "70vh" }}>
       <Container>
-        <Typography variant="h4" sx={{ color: '#0f4c5c', mb: 3, fontWeight: 'bold' }}>
+        <Typography
+          variant="h4"
+          sx={{ color: "#0f4c5c", mb: 3, fontWeight: "bold" }}
+        >
           {title}
         </Typography>
-        <Typography variant="body1" sx={{ color: '#555', lineHeight: 1.8, mb: 4 }}>
+        <Typography
+          variant="body1"
+          sx={{ color: "#555", lineHeight: 1.8, mb: 4 }}
+        >
           {description}
         </Typography>
         {children}
@@ -122,36 +152,121 @@ const ServiceDetail = ({ id, title, description, children }) => (
   </Element>
 );
 
-// ✅ Recruitment Process Section
-const RecruitmentProcess = () => (
-  <Box sx={{ backgroundColor: '#e3f2fd', p: 4, borderRadius: '8px', boxShadow: 3, mt: 4 }}>
-    <Typography variant="h5" sx={{ color: '#0f4c5c', fontWeight: 'bold', mb: 2 }}>
-      Recruitment Process
-    </Typography>
-    <Grid container spacing={4}>
-      {[
-        { step: '1', title: 'Requirement Analysis', detail: 'Understanding the client’s needs, job description, and desired qualifications.' },
-        { step: '2', title: 'Candidate Sourcing', detail: 'Identifying and reaching out to potential candidates through multiple channels.' },
-        { step: '3', title: 'Screening & Shortlisting', detail: 'Reviewing resumes, conducting initial interviews, and shortlisting qualified candidates.' },
-        { step: '4', title: 'Candidate & Gromming', detail: 'Extending the offer and ensuring a smooth onboarding process for the new hire.' },
-        { step: '5', title: 'Client Interview & Selection', detail: 'Arranging interviews with the client and assisting in the selection process.' },
-        { step: '6', title: 'Offer & Onboarding', detail: 'Extending the offer and ensuring a smooth onboarding process for new hire.' }
-      ].map((item, index) => (
-        <Grid item xs={12} md={6} key={index}>
-          <Box sx={{ p: 3, backgroundColor: '#ffffff', borderRadius: '8px', boxShadow: 1 }}>
-            <Typography variant="h6" sx={{ color: '#0f4c5c', fontWeight: 'bold' }}>
-              {`Step ${item.step}: ${item.title}`}
-            </Typography>
-            <Typography variant="body2" sx={{ color: '#555', mt: 1 }}>
-              {item.detail}
-            </Typography>
-          </Box>
+const recruitmentSteps = [
+  {
+    icon: <AssignmentIcon fontSize="large" color="primary" />,
+    title: "Requirement Analysis",
+    description:
+      "Understanding the client’s needs, job description, and desired qualifications.",
+  },
+  {
+    icon: <SearchIcon fontSize="large" color="primary" />,
+    title: "Candidate Sourcing",
+    description:
+      "Identifying and reaching out to potential candidates through multiple channels.",
+  },
+  {
+    icon: <AssessmentIcon fontSize="large" color="primary" />,
+    title: "Screening & Shortlisting",
+    description:
+      "Reviewing resumes, conducting initial interviews, and shortlisting qualified candidates.",
+  },
+  {
+    icon: <PeopleIcon fontSize="large" color="primary" />,
+    title: "Grooming Candidate",
+    description:
+      "Ensuring the candidate is prepared and aligned with client expectations before the final interview.",
+  },
+  {
+    icon: <WorkOutlineIcon fontSize="large" color="primary" />,
+    title: "Client Interview & Selection",
+    description:
+      "Arranging interviews with the client and assisting in the selection process.",
+  },
+  {
+    icon: <CheckCircleOutlineIcon fontSize="large" color="primary" />,
+    title: "Offer & Onboarding",
+    description:
+      "Extending the offer and ensuring a smooth onboarding process for the new hire.",
+  },
+  {
+    icon: <LoopIcon fontSize="large" color="primary" />,
+    title: "Follow-Up",
+    description:
+      "Following up with candidates and clients post-placement to ensure satisfaction.",
+  },
+];
+
+const RecruitmentProcess = () => {
+  return (
+    <Box
+      sx={{
+        minHeight: "100vh",
+        width: "70vw",
+        background: "linear-gradient(135deg, #9cadb5, #cee2e9)", 
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingY: 10,
+        paddingX: 0,
+        overflow: "hidden",
+      }}
+    >
+      <Container maxWidth="xl">
+        <Typography
+          variant="h3"
+          align="center"
+          color="#fff"
+          gutterBottom
+          sx={{ fontWeight: "bold", mb: 6, textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)" }}
+        >
+          Recruitment Process
+        </Typography>
+
+        <Grid container spacing={6}>
+          {recruitmentSteps.map((step, index) => (
+            <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.4 }}
+              >
+                <Paper
+                  elevation={6}
+                  sx={{
+                    p: 4,
+                    minHeight: "250px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    borderRadius: "12px",
+                    background: "rgba(112, 120, 120, 0.7)",
+                    color: "#fff",
+                    transition: "all 0.4s",
+                    "&:hover": {
+                      background: "#1E2A35",
+                      boxShadow: "0 12px 30px rgba(0,0,0,0.8)",
+                      transform: "translateY(-8px)",
+                    }
+                  }}
+                >
+                  {step.icon}
+                  <Typography variant="h5" sx={{ fontWeight: "bold", mt: 2 }}>
+                    {step.title}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mt: 1 }}>
+                    {step.description}
+                  </Typography>
+                </Paper>
+              </motion.div>
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
-  
-  </Box>
-);
+      </Container>
+    </Box>
+  );
+};
 
 const steps = [
   {
@@ -275,16 +390,48 @@ const ExecutiveTalent = () => {
 };
 
 const EmployeeTrainingSection = () => {
+  const features = [
+    {
+      icon: <School fontSize="large" color="primary" />,
+      title: "Interactive Learning Sessions",
+      description: "Engage employees with hands-on training, real-world scenarios, and collaborative activities."
+    },
+    {
+      icon: <Group fontSize="large" color="secondary" />,
+      title: "Expert Trainers",
+      description: "Learn from industry professionals with years of experience and specialized knowledge."
+    },
+    {
+      icon: <WorkspacePremium fontSize="large" color="success" />,
+      title: "Customized Training Modules",
+      description: "Tailor training content to match your company's specific goals and objectives."
+    },
+    {
+      icon: <VerifiedUser fontSize="large" color="warning" />,
+      title: "Certification & Assessment",
+      description: "Track progress and recognize achievements with certificates and evaluations."
+    },
+    {
+      icon: <CheckCircleOutline fontSize="large" color="info" />,
+      title: "Leadership & Development",
+      description: "Develop strong leadership skills with specialized coaching and mentoring programs."
+    },
+    {
+      icon: <CheckCircleOutline fontSize="large" color="error" />,
+      title: "Continuous Learning Support",
+      description: "Access ongoing resources and support to promote continuous employee growth."
+    }
+  ];
+
   return (
-    <>
-    <Box sx={{ py: 10, px: 3, backgroundColor: '#f5f5f5' }}>
+    <Box sx={{ py: 10, px: 3, backgroundColor: "#f5f5f5" }}>
       <Grid container spacing={5} alignItems="center">
-        
+
         {/* Left Content */}
         <Grid item xs={12} md={6}>
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }} 
-            animate={{ opacity: 1, x: 0 }} 
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
             <Typography variant="h4" fontWeight="bold" color="secondary" gutterBottom>
@@ -295,37 +442,44 @@ const EmployeeTrainingSection = () => {
               Empower your workforce with our expert-led training programs. Our courses are designed to enhance skills, boost productivity, and drive business growth.
             </Typography>
 
-            <List>
-              <ListItem>
-                <ListItemIcon>
-                  <CheckCircleOutline color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="Interactive Learning Sessions" />
-              </ListItem>
-
-              <ListItem>
-                <ListItemIcon>
-                  <CheckCircleOutline color="secondary" />
-                </ListItemIcon>
-                <ListItemText primary="Expert Trainers" />
-              </ListItem>
-
-              <ListItem>
-                <ListItemIcon>
-                  <CheckCircleOutline color="success" />
-                </ListItemIcon>
-                <ListItemText primary="Customized Training Modules" />
-              </ListItem>
-
-              <ListItem>
-                <ListItemIcon>
-                  <CheckCircleOutline color="warning" />
-                </ListItemIcon>
-                <ListItemText primary="Certification & Assessment" />
-              </ListItem>
-            </List>
-
-            
+            <Grid container spacing={3}>
+              {features.map((feature, index) => (
+                <Grid item xs={12} sm={6} key={index}>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <Card
+                      sx={{
+                        minHeight: "220px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        textAlign: "center",
+                        boxShadow: 4,
+                        borderRadius: "12px",
+                        transition: "0.4s",
+                        "&:hover": {
+                          boxShadow: "0 12px 30px rgba(0,0,0,0.3)",
+                          transform: "translateY(-10px)"
+                        }
+                      }}
+                    >
+                      <CardContent>
+                        {feature.icon}
+                        <Typography variant="h6" sx={{ fontWeight: "bold", mt: 2 }}>
+                          {feature.title}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" mt={1}>
+                          {feature.description}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
           </motion.div>
         </Grid>
 
@@ -336,34 +490,62 @@ const EmployeeTrainingSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <img
-              src="https://hireox.themeht.com/wp-content/uploads/2024/10/section-img01.jpg"
+            <CardMedia
+              component="img"
+              image="40.jpg"
               alt="Employee Training"
-              style={{ width: "100%", borderRadius: "12px", boxShadow: "0px 8px 18px rgba(0,0,0,0.3)" }}
+              sx={{ 
+                width: "100%", 
+                borderRadius: "12px", 
+                boxShadow: "0px 8px 18px rgba(0,0,0,0.3)" 
+              }}
             />
           </motion.div>
         </Grid>
 
       </Grid>
     </Box>
-    </>
   );
 };
 
 const TeamLeadershipSection = () => {
+  const features = [
+    {
+      icon: <Groups fontSize="large" color="primary" />,
+      title: "Effective Communication Skills",
+      description: "Learn how to clearly convey ideas, motivate your team, and build trust with effective communication techniques."
+    },
+    {
+      icon: <Psychology fontSize="large" color="secondary" />,
+      title: "Conflict Resolution & Problem Solving",
+      description: "Develop strategies to resolve conflicts, promote teamwork, and maintain a harmonious work environment."
+    },
+    {
+      icon: <Leaderboard fontSize="large" color="success" />,
+      title: "Leadership Mindset Development",
+      description: "Enhance your leadership capabilities by fostering a growth mindset and strengthening decision-making skills."
+    },
+    {
+      icon: <Handshake fontSize="large" color="warning" />,
+      title: "Practical Case Studies & Role Plays",
+      description: "Apply leadership theories to real-life scenarios through engaging role plays and case studies."
+    },
+    {
+      icon: <VerifiedUser fontSize="large" color="info" />,
+      title: "Strategic Thinking & Planning",
+      description: "Improve your strategic planning skills to make informed decisions and achieve long-term business goals."
+    },
+    {
+      icon: <Insights fontSize="large" color="error" />,
+      title: "Coaching & Mentoring",
+      description: "Learn to coach and mentor your team effectively, fostering personal and professional growth."
+    }
+  ];
+
   return (
-    <Box
-      sx={{
-        minHeight: "60vh",
-        width: "150vh",
-        color: "#000",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-       
-      }}
-    >
-      <Grid container spacing={4} alignItems="center">
+    <Box sx={{ py: 10, px: 3, backgroundColor: "#f5f5f5" }}>
+      <Grid container spacing={5} alignItems="center">
+
         {/* Left Content */}
         <Grid item xs={12} md={6}>
           <motion.div
@@ -371,39 +553,77 @@ const TeamLeadershipSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Typography variant="h3" fontWeight="bold" gutterBottom>
+            <Typography variant="h4" fontWeight="bold" color="secondary" gutterBottom>
               Team Leadership Training
             </Typography>
-            <Typography variant="body1" mb={3}>
+
+            <Typography variant="body1" color="textSecondary" mb={4}>
               Develop strong leadership skills to guide and inspire your team. 
               Our training focuses on communication, decision-making, and 
               strategic thinking to create effective leaders.
             </Typography>
-            <ul>
-              <li>✅ Effective Communication Skills</li>
-              <li>✅ Conflict Resolution & Problem Solving</li>
-              <li>✅ Leadership Mindset Development</li>
-              <li>✅ Practical Case Studies & Role Plays</li>
-            </ul>
-            
+
+            <Grid container spacing={3}>
+              {features.map((feature, index) => (
+                <Grid item xs={12} sm={6} key={index}>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <Card
+                      sx={{
+                        minHeight: "220px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        textAlign: "center",
+                        boxShadow: 4,
+                        borderRadius: "12px",
+                        transition: "0.4s",
+                        "&:hover": {
+                          boxShadow: "0 12px 30px rgba(0,0,0,0.3)",
+                          transform: "translateY(-10px)"
+                        }
+                      }}
+                    >
+                      <CardContent>
+                        {feature.icon}
+                        <Typography variant="h6" sx={{ fontWeight: "bold", mt: 2 }}>
+                          {feature.title}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" mt={1}>
+                          {feature.description}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
           </motion.div>
         </Grid>
 
         {/* Right Image */}
         <Grid item xs={12} md={6}>
-          <motion.img
-            src="https://hireox.themeht.com/wp-content/uploads/2024/10/section-img01.jpg"
-            alt="Team Leadership"
-            style={{
-              width: "100%",
-              borderRadius: "10px",
-              boxShadow: "0px 4px 10px rgba(0,0,0,0.5)",
-            }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-          />
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <CardMedia
+              component="img"
+              image="42.jpg"
+              alt="Team Leadership"
+              sx={{ 
+                width: "100%", 
+                borderRadius: "12px", 
+                boxShadow: "0px 8px 18px rgba(0,0,0,0.3)" 
+              }}
+            />
+          </motion.div>
         </Grid>
+
       </Grid>
     </Box>
   );
