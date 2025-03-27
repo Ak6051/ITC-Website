@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -20,7 +19,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 export default function PrimarySearchAppBar() {
-  const [dropdowns, setDropdowns] = useState({ practice: null });
+  const [dropdowns, setDropdowns] = useState({ login: null, practice: null });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -68,7 +67,7 @@ export default function PrimarySearchAppBar() {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, cursor: "pointer", marginTop: 2, marginLeft: "70px" }}
+            sx={{ flexGrow: 1, cursor: "pointer", marginTop: 2, marginLeft: "140px" }}
             onClick={() => navigate("/")}
           >
             <img src="24.png" alt="Logo" style={{ width: "200px", height: "auto" }} />
@@ -81,28 +80,53 @@ export default function PrimarySearchAppBar() {
               fontSize: { md: "1.2rem", lg: "1.5rem" },
               padding: { md: "10px 20px", lg: "15px 30px" },
               justifyContent: "center",
-              flexGrow: 1,
+              flexGrow: 3,
             }}
           >
-                     <Button onClick={() => navigate("/about")} color="inherit"  sx={{ textTransform: "none" , fontSize:"1.1rem"}}>
-               About Us
-             </Button>
-            <Button onClick={() => navigate("/service")} color="inherit" sx={{ textTransform: "none" ,fontSize:"1.1rem"}}>
-              Services             </Button>
-             <Button onClick={() => navigate("/open-job")} color="inherit" sx={{ textTransform: "none", fontSize:"1.1rem" }}>
-               Job Opening
-             </Button>
-             <Button onClick={() => navigate("/candidate-login")} color="inherit" sx={{ textTransform: "none" ,fontSize:"1.1rem"}}>
-               Candidate Login
+            <Button onClick={() => navigate("/about")} color="inherit" sx={{ textTransform: "none", fontSize: "1.1rem" }}>
+              About Us
             </Button>
-             <Button onClick={() => navigate("/employer-login")} color="inherit" sx={{ textTransform: "none",fontSize:"1.1rem" }}>
-               Employer
+            <Button onClick={() => navigate("/service")} color="inherit" sx={{ textTransform: "none", fontSize: "1.1rem" }}>
+              Services
             </Button>
-             <Button onClick={() => navigate("/login")} color="inherit" sx={{ textTransform: "none",fontSize:"1.1rem" }}>
-              Recruiter
+            <Button onClick={() => navigate("/open-job")} color="inherit" sx={{ textTransform: "none", fontSize: "1.1rem" }}>
+              Job Opening
             </Button>
 
             <Button
+              color="inherit"
+              onClick={(e) => handleDropdownOpen(e, "login")}
+              endIcon={<ArrowDropDownIcon />}
+              sx={{ textTransform: "none", fontSize: "1.1rem" }}
+            >
+              Login
+            </Button>
+            <Menu
+              anchorEl={dropdowns.login}
+              open={Boolean(dropdowns.login)}
+              onClose={() => handleDropdownClose("login")}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
+              sx={{
+                "& .MuiPaper-root": {
+                  backgroundColor: "#1e293b",
+                  color: "white",
+                  borderRadius: "8px",
+                  boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                },
+                "& .MuiMenuItem-root": {
+                  transition: "background-color 0.2s ease-in-out",
+                  "&:hover": {
+                    backgroundColor: "#334155",
+                  },
+                },
+              }}
+            >
+              <MenuItem onClick={() => navigate("/candidate-login")}>Candidate Login</MenuItem>
+              <MenuItem onClick={() => navigate("/employer-login")}>Employer Login</MenuItem>
+              <MenuItem onClick={() => navigate("/login")}>Recruiter Login</MenuItem>
+            </Menu>
+                         <Button
               color="inherit"
               onClick={(e) => handleDropdownOpen(e, "practice")}
               endIcon={<ArrowDropDownIcon />}
@@ -133,50 +157,28 @@ export default function PrimarySearchAppBar() {
                 </MenuItem>
               ))}
             </Menu>
-            <Button onClick={() => navigate("/contactUs")} color="inherit" sx={{ textTransform: "none",fontSize:"1.1rem" }}>
+
+            <Button onClick={() => navigate("/contactUs")} color="inherit" sx={{ textTransform: "none", fontSize: "1.1rem" }}>
               Contact Us
-          </Button>
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
 
       <Drawer anchor="left" open={mobileOpen} onClose={() => setMobileOpen(false)}>
         <List>
-          <ListItem button onClick={() => navigate("/")}>
-            <ListItemText primary="Home" />
-          </ListItem>
-          <ListItem button onClick={() => navigate("/about")}>
-            <ListItemText primary="About Us" />
-          </ListItem>
-          <ListItem button onClick={() => navigate("/service")}>
-            <ListItemText primary="Services" />
-          </ListItem>
-          <ListItem button onClick={() => navigate("/contactUs")}>
-            <ListItemText primary="Contact Us" />
-          </ListItem>
+          <ListItem button onClick={() => navigate("/")}> <ListItemText primary="Home" /> </ListItem>
+          <ListItem button onClick={() => navigate("/about")}> <ListItemText primary="About Us" /> </ListItem>
+          <ListItem button onClick={() => navigate("/service")}> <ListItemText primary="Services" /> </ListItem>
+          <ListItem button onClick={() => navigate("/contactUs")}> <ListItemText primary="Contact Us" /> </ListItem>
           <Divider />
-          <ListItem button onClick={() => navigate("/open-job")}>
-            <ListItemText primary=" Job Opening" />
-          </ListItem>
-          <ListItem button onClick={() => navigate("/candidate-login")}>
-            <ListItemText primary=" Candidate Login" />
-          </ListItem>
-          <ListItem button onClick={() => navigate("/employer-login")}>
-            <ListItemText primary=" Employer Login" />
-          </ListItem>
-          <ListItem button onClick={() => navigate("/login")}>
-            <ListItemText primary=" Recruiter Login" />
-          </ListItem>
-
+          <ListItem button onClick={() => navigate("/open-job")}> <ListItemText primary="Job Opening" /> </ListItem>
+          <ListItem button onClick={() => navigate("/candidate-login")}> <ListItemText primary="Candidate Login" /> </ListItem>
+          <ListItem button onClick={() => navigate("/employer-login")}> <ListItemText primary="Employer Login" /> </ListItem>
+          <ListItem button onClick={() => navigate("/login")}> <ListItemText primary="Recruiter Login" /> </ListItem>
           <Divider />
-
-          <ListItem button onClick={(e) => handleDropdownOpen(e, "practice")}>
-            <ListItemText primary="Practice Areas" />
-          </ListItem>
         </List>
       </Drawer>
-
-     
     </>
   );
 }

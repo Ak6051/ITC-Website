@@ -9,7 +9,8 @@ const HeroSection = () => {
         height: '100vh',
         overflow: 'hidden',
         position: 'relative',
-        // marginTop: "-72px",
+        marginTop: "-11px",
+        
         // paddingTop: "10px",
       }}
     >

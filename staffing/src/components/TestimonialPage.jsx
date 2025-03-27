@@ -1,10 +1,9 @@
-import React from "react";
+
+
+
+import React, { useEffect, useRef } from "react";
 import { Box, Typography, Container } from "@mui/material";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 const testimonials = [
   { name: "Aether Industries", image: "aether.jpg" },
@@ -17,8 +16,34 @@ const testimonials = [
 ];
 
 const TestimonialPage = () => {
+  const scrollRef = useRef(null);
+  const scrollSpeed = 1; // Adjust speed as needed
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let scrollPosition = 0;
+    
+    const scrollAnimation = () => {
+      if (!scrollContainer) return;
+      
+      scrollPosition += scrollSpeed;
+      if (scrollPosition >= scrollContainer.scrollWidth / 2) {
+        scrollPosition = 0; // Reset to create infinite loop effect
+      }
+      
+      scrollContainer.scrollLeft = scrollPosition;
+      requestAnimationFrame(scrollAnimation);
+    };
+
+    requestAnimationFrame(scrollAnimation);
+
+    return () => cancelAnimationFrame(scrollAnimation);
+  }, []);
+
   return (
-    <Box sx={{ padding: "80px 0", backgroundColor: "#f5f5f5" }}>
+    <Box sx={{ padding: "80px 0", backgroundColor: "#f5f5f5", overflow: "hidden" }}>
       <Container>
         <Typography
           variant="h4"
@@ -27,53 +52,50 @@ const TestimonialPage = () => {
           What Our Clients Say
         </Typography>
 
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          navigation
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 4000 }}
-          slidesPerView={1}
-          breakpoints={{
-            600: { slidesPerView: 2 },
-            900: { slidesPerView: 3 },
+        <Box
+          ref={scrollRef}
+          sx={{
+            display: "flex",
+            gap: 4,
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            width: "100%",
           }}
         >
-          {testimonials.map((testimonial, index) => (
-            <SwiperSlide key={index}>
+          {[...testimonials, ...testimonials].map((testimonial, index) => (
+            <Box
+              key={index}
+              sx={{
+                textAlign: "center",
+                minWidth: "300px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                transition: "transform 0.3s",
+                "&:hover": { transform: "scale(1.05)" },
+              }}
+            >
               <Box
+                component="img"
+                src={testimonial.image}
+                alt={testimonial.name}
                 sx={{
-                  textAlign: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  transition: "transform 0.3s",
-                  "&:hover": {
-                    transform: "scale(1.05)",
-                  },
+                  width: { xs: 200, sm: 250, md: 300 },
+                  height: { xs: 150, sm: 180, md: 220 },
+                  objectFit: "contain",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+                  mb: 2,
                 }}
+              />
+              <Typography
+                variant="h6"
+                sx={{ color: "#333", fontSize: { xs: "1rem", md: "1.25rem" } }}
               >
-                <Box
-                  component="img"
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  sx={{
-                    width: { xs: 200, sm: 250, md: 300 },  // Image width
-                    height: { xs: 150, sm: 180, md: 220 },  // Image height
-                    objectFit: "contain",   // Display full image
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-                    mb: 2,
-                  }}
-                />
-                <Typography
-                  variant="h6"
-                  sx={{ color: "#333", fontSize: { xs: "1rem", md: "1.25rem" } }}
-                >
-                  {testimonial.name}
-                </Typography>
-              </Box>
-            </SwiperSlide>
+                {testimonial.name}
+              </Typography>
+            </Box>
           ))}
-        </Swiper>
+        </Box>
       </Container>
     </Box>
   );

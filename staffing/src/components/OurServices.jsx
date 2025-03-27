@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useRef } from 'react';
 import { Box, Typography, Container, Button } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -28,37 +29,25 @@ const services = [
 const OurServices = () => {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
-  const scrollSpeed = 5; // Scroll speed (increase for faster scroll)
-
-  const handleRedirect = (id) => {
-    navigate(`/practice-areas#${id}`);
-  };
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    let scrollPosition = 0;
-    let direction = 1;
+    let scrollAmount = 0;
+    const scrollSpeed = 0.9; // Adjust speed for smooth scrolling
 
-    const scrollAnimation = () => {
+    const scroll = () => {
       if (!scrollContainer) return;
-
-      scrollPosition += scrollSpeed * direction;
-
-      if (scrollPosition >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
-        direction = -1;  // Change direction at the end
-      } else if (scrollPosition <= 0) {
-        direction = 1;  // Change direction at the start
+      scrollAmount += scrollSpeed;
+      if (scrollAmount >= scrollContainer.scrollWidth) {
+        scrollAmount = 0;
       }
-
-      scrollContainer.scrollLeft = scrollPosition;
-      requestAnimationFrame(scrollAnimation);  // Smooth animation
+      scrollContainer.scrollLeft = scrollAmount;
+      requestAnimationFrame(scroll);
     };
 
-    requestAnimationFrame(scrollAnimation);
-
-    return () => cancelAnimationFrame(scrollAnimation);
+    requestAnimationFrame(scroll);
   }, []);
 
   return (
@@ -114,17 +103,15 @@ const OurServices = () => {
           sx={{
             display: 'flex',
             gap: 3,
-            overflowX: 'auto',
-            scrollBehavior: 'smooth',
+            overflowX: 'hidden',
+            whiteSpace: 'nowrap',
             p: 2,
-            '::-webkit-scrollbar': { display: 'none' }, // Hide scrollbar
-            scrollSnapType: 'x mandatory',
             width: '100%',
           }}
         >
-          {services.map((service) => (
+          {services.concat(services).map((service, index) => ( // Duplicate for seamless loop
             <motion.div
-              key={service.id}
+              key={index}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               style={{
@@ -135,8 +122,7 @@ const OurServices = () => {
                 borderRadius: '12px',
                 boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
                 cursor: 'pointer',
-                scrollSnapAlign: 'start',
-                marginRight: '20px'
+                whiteSpace: 'normal',
               }}
             >
               <motion.div style={{ fontSize: '4rem', color: '#e67e22', marginBottom: '20px' }}>
@@ -149,7 +135,7 @@ const OurServices = () => {
               <Button
                 variant="contained"
                 sx={{ mt: 2, background: '#F2BC38', color: '#fff', '&:hover': { background: '#d35400' } }}
-                onClick={() => handleRedirect(service.id)}
+                onClick={() => navigate(`/practice-areas#${service.id}`)}
               >
                 Learn More
               </Button>

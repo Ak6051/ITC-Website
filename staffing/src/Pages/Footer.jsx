@@ -6,8 +6,8 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "#f8f9fa",
-        color: "#000",
+        backgroundColor: "#54616C",
+        color: "#fff",
         padding: { xs: "30px 15px", sm: "40px 20px" },
         borderTop: "1px solid #ddd",
       }}
@@ -17,7 +17,7 @@ const Footer = () => {
         {/* Left Section - Logo & Text */}
         <Grid item xs={12} sm={6} md={4} sx={{ textAlign: { xs: "center", md: "left" } }}>
           <Box sx={{ display: "flex", justifyContent: { xs: "center", md: "flex-start" }, mb: 2 }}>
-            <img src="footer.jpg" alt="Company Logo" style={{ height: "60px" }} />
+            <img src="footer.png" alt="Company Logo" style={{ height: "60px" }} />
           </Box>
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
             Ideal Talent Connect Pvt. Ltd.
@@ -108,7 +108,7 @@ const Footer = () => {
               style={{ maxWidth: "400px", border: "0", borderRadius: "8px" }}
               loading="lazy"
               allowFullScreen
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117799.46089196372!2d72.74673482546317!3d21.170240430845752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e5945f2d3ff%3A0x45d7e5c74a3bb3a5!2sSurat%2C%20Gujarat%2C%20India!5e0!3m2!1sen!2sin!4v1648353843489"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.442688650946!2d72.8374340750368!3d21.214287180481996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04fc789919359%3A0xdc8f1d468f830c77!2sMahek%20Icon!5e0!3m2!1sen!2sin!4v1742031715231!5m2!1sen!2sin"
             ></iframe>
           </Box>
         </Grid>

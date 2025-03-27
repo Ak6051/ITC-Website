@@ -17,7 +17,7 @@ const Home = () => {
   // PDF Download Handler
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = "/brochure.pdf";    // 👈 PDF ka path
+    link.href = "br.pdf";    // 👈 PDF ka path
     link.download = "Company_Brochure.pdf";
     link.click();
   };

@@ -156,112 +156,121 @@ const recruitmentSteps = [
   {
     icon: <AssignmentIcon fontSize="large" color="primary" />,
     title: "Requirement Analysis",
-    description:
-      "Understanding the client’s needs, job description, and desired qualifications.",
+    description: "Understanding the client’s needs, job description, and desired qualifications.",
   },
   {
     icon: <SearchIcon fontSize="large" color="primary" />,
     title: "Candidate Sourcing",
-    description:
-      "Identifying and reaching out to potential candidates through multiple channels.",
+    description: "Identifying and reaching out to potential candidates through multiple channels.",
   },
   {
     icon: <AssessmentIcon fontSize="large" color="primary" />,
     title: "Screening & Shortlisting",
-    description:
-      "Reviewing resumes, conducting initial interviews, and shortlisting qualified candidates.",
+    description: "Reviewing resumes, conducting initial interviews, and shortlisting qualified candidates.",
   },
   {
     icon: <PeopleIcon fontSize="large" color="primary" />,
     title: "Grooming Candidate",
-    description:
-      "Ensuring the candidate is prepared and aligned with client expectations before the final interview.",
+    description: "Ensuring the candidate is prepared and aligned with client expectations before the final interview.",
   },
   {
     icon: <WorkOutlineIcon fontSize="large" color="primary" />,
     title: "Client Interview & Selection",
-    description:
-      "Arranging interviews with the client and assisting in the selection process.",
+    description: "Arranging interviews with the client and assisting in the selection process.",
   },
   {
     icon: <CheckCircleOutlineIcon fontSize="large" color="primary" />,
     title: "Offer & Onboarding",
-    description:
-      "Extending the offer and ensuring a smooth onboarding process for the new hire.",
+    description: "Extending the offer and ensuring a smooth onboarding process for the new hire.",
   },
   {
     icon: <LoopIcon fontSize="large" color="primary" />,
     title: "Follow-Up",
-    description:
-      "Following up with candidates and clients post-placement to ensure satisfaction.",
+    description: "Following up with candidates and clients post-placement to ensure satisfaction.",
   },
 ];
 
 const RecruitmentProcess = () => {
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        width: "70vw",
-        background: "linear-gradient(135deg, #9cadb5, #cee2e9)", 
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        paddingY: 10,
-        paddingX: 0,
-        overflow: "hidden",
-      }}
-    >
+    <Box sx={{ py: 10, px: 3, backgroundColor: "#f5f5f5" }}>
       <Container maxWidth="xl">
-        <Typography
-          variant="h3"
-          align="center"
-          color="#fff"
-          gutterBottom
-          sx={{ fontWeight: "bold", mb: 6, textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)" }}
-        >
-          Recruitment Process
-        </Typography>
+        <Grid container spacing={5} alignItems="center">
 
-        <Grid container spacing={6}>
-          {recruitmentSteps.map((step, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4 }}
-              >
-                <Paper
-                  elevation={6}
-                  sx={{
-                    p: 4,
-                    minHeight: "250px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    textAlign: "center",
-                    borderRadius: "12px",
-                    background: "rgba(112, 120, 120, 0.7)",
-                    color: "#fff",
-                    transition: "all 0.4s",
-                    "&:hover": {
-                      background: "#1E2A35",
-                      boxShadow: "0 12px 30px rgba(0,0,0,0.8)",
-                      transform: "translateY(-8px)",
-                    }
-                  }}
-                >
-                  {step.icon}
-                  <Typography variant="h5" sx={{ fontWeight: "bold", mt: 2 }}>
-                    {step.title}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    {step.description}
-                  </Typography>
-                </Paper>
-              </motion.div>
-            </Grid>
-          ))}
+          {/* Left Image Section */}
+          <Grid item xs={12} md={6}>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <CardMedia
+                component="img"
+                image="81.jpg"  // ⭐️ Replace with your image path
+                alt="Recruitment Process"
+                sx={{ 
+                  width: "100%", 
+                  borderRadius: "12px", 
+                  boxShadow: "0px 8px 18px rgba(0,0,0,0.3)" 
+                }}
+              />
+            </motion.div>
+          </Grid>
+
+          {/* Right Card Section */}
+          <Grid item xs={12} md={6}>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Typography variant="h4" fontWeight="bold" color="secondary" gutterBottom>
+                Recruitment Process
+              </Typography>
+
+              <Typography variant="body1" color="textSecondary" mb={4}>
+                Our streamlined recruitment process ensures that the right talent is identified, evaluated, and hired efficiently.
+              </Typography>
+
+              <Grid container spacing={3}>
+                {recruitmentSteps.map((step, index) => (
+                  <Grid item xs={12} sm={6} key={index}>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <Card
+                        sx={{
+                          minHeight: "220px",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          textAlign: "center",
+                          boxShadow: 4,
+                          borderRadius: "12px",
+                          transition: "0.4s",
+                          "&:hover": {
+                            boxShadow: "0 12px 30px rgba(0,0,0,0.3)",
+                            transform: "translateY(-10px)"
+                          }
+                        }}
+                      >
+                        <CardContent>
+                          {step.icon}
+                          <Typography variant="h6" sx={{ fontWeight: "bold", mt: 2 }}>
+                            {step.title}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary" mt={1}>
+                            {step.description}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </Grid>
+                ))}
+              </Grid>
+            </motion.div>
+          </Grid>
         </Grid>
       </Container>
     </Box>
@@ -315,77 +324,88 @@ const steps = [
 
 const ExecutiveTalent = () => {
   return (
- 
-  <Box
-  sx={{
-    minHeight: "100vh", // Full screen height
-    width: "70vw", // Full screen width
-    background: "linear-gradient(135deg,rgb(156, 173, 181),rgb(206, 226, 233))", // Gradient background
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingY: 10,
-    paddingX: 0, // Remove any unwanted left/right padding
-    overflow: "hidden", // Prevent unwanted scroll
-  }}
->
-    <Container maxWidth="xl">
-      <Typography
-        variant="h3"
-        align="center"
-        color="#fff"
-        gutterBottom
-        sx={{ fontWeight: "bold", mb: 6, textShadow: "2px 2px 4px rgba(221, 55, 55, 0.7)" }}
-      >
-        Executive Process
-      </Typography>
+    <Box sx={{ py: 10, px: 3, backgroundColor: "#f5f5f5" }}>
+      <Container maxWidth="xl">
+        <Grid container spacing={5} alignItems="center">
 
-      <Grid container spacing={6}>
-        {steps.map((step, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
+          {/* Left Card Section */}
+          <Grid item xs={12} md={6}>
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.4 }}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              <Paper
-                elevation={6}
-                sx={{
-                  p: 4,
-                  minHeight: "250px",   // Same card height
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  textAlign: "center",
-                  borderRadius: "12px",
-                  background: "rgba(112, 120, 120, 0.7)",   // Darker card color
-                  color: "#fff",            // White text
-                  transition: "all 0.4s",
-                  "&:hover": {
-                    background: "#1E2A35",
-                    boxShadow: "0 12px 30px rgba(0,0,0,0.8)",
-                    transform: "translateY(-8px)",
-                  }
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  sx={{ fontWeight: "bold", mb: 2 }}
-                >
-                  {step.title}
-                </Typography>
-                <Typography
-                  variant="body1"
-                >
-                  {step.description}
-                </Typography>
-              </Paper>
+              <Typography variant="h4" fontWeight="bold" color="secondary" gutterBottom>
+                Executive Search Process
+              </Typography>
+
+              <Typography variant="body1" color="textSecondary" mb={4}>
+                Our structured executive search process ensures that top-tier talent is identified, evaluated, and placed successfully.
+              </Typography>
+
+              <Grid container spacing={3}>
+                {steps.map((step, index) => (
+                  <Grid item xs={12} sm={6} key={index}>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <Card
+                        sx={{
+                          minHeight: "220px",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          textAlign: "center",
+                          boxShadow: 4,
+                          borderRadius: "12px",
+                          transition: "0.4s",
+                          "&:hover": {
+                            boxShadow: "0 12px 30px rgba(0,0,0,0.3)",
+                            transform: "translateY(-10px)"
+                          }
+                        }}
+                      >
+                        <CardContent>
+                          {step.icon}
+                          <Typography variant="h6" sx={{ fontWeight: "bold", mt: 2 }}>
+                            {step.title}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary" mt={1}>
+                            {step.description}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </Grid>
+                ))}
+              </Grid>
             </motion.div>
           </Grid>
-        ))}
-      </Grid>
-    </Container>
-  </Box>
+
+          {/* Right Image Section */}
+          <Grid item xs={12} md={6}>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <CardMedia
+                component="img"
+                image="82.jpg"  // ⭐️ Replace with your image path
+                alt="Executive Search"
+                sx={{ 
+                  width: "100%", 
+                  borderRadius: "12px", 
+                  boxShadow: "0px 8px 18px rgba(0,0,0,0.3)" 
+                }}
+              />
+            </motion.div>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 
@@ -425,12 +445,37 @@ const EmployeeTrainingSection = () => {
 
   return (
     <Box sx={{ py: 10, px: 3, backgroundColor: "#f5f5f5" }}>
-      <Grid container spacing={5} alignItems="center">
+      <Grid 
+        container 
+        spacing={5} 
+        alignItems="center"
+        direction={{ xs: 'column-reverse', md: 'row' }}  // Responsive Direction
+      >
 
-        {/* Left Content */}
+        {/* Left Image */}
         <Grid item xs={12} md={6}>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <CardMedia
+              component="img"
+              image="40.jpg"
+              alt="Employee Training"
+              sx={{
+                width: "100%",
+                borderRadius: "12px",
+                boxShadow: "0px 8px 18px rgba(0,0,0,0.3)"
+              }}
+            />
+          </motion.div>
+        </Grid>
+
+        {/* Right Content */}
+        <Grid item xs={12} md={6}>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
@@ -483,30 +528,11 @@ const EmployeeTrainingSection = () => {
           </motion.div>
         </Grid>
 
-        {/* Right Image */}
-        <Grid item xs={12} md={6}>
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <CardMedia
-              component="img"
-              image="40.jpg"
-              alt="Employee Training"
-              sx={{ 
-                width: "100%", 
-                borderRadius: "12px", 
-                boxShadow: "0px 8px 18px rgba(0,0,0,0.3)" 
-              }}
-            />
-          </motion.div>
-        </Grid>
-
       </Grid>
     </Box>
   );
 };
+
 
 const TeamLeadershipSection = () => {
   const features = [

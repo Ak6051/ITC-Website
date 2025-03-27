@@ -26,7 +26,8 @@ import {
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const advantages = [
   {
@@ -101,6 +102,8 @@ const services = [
 ];
 
 const AdvantageCard = ({ advantage }) => {
+  
+
   return (
     <Card
       sx={{
@@ -123,6 +126,8 @@ const AdvantageCard = ({ advantage }) => {
 };
 
 const About = () => {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ fontFamily: 'Arial, sans-serif', color: '#333' }}>
      <Box
@@ -179,10 +184,7 @@ const About = () => {
             </Typography>
 
             <Typography sx={{ color: '#6c757d', lineHeight: 1.7 }}>
-              Nunc a scelerisque dolor, in cursus sem. Aenean turpis elit,
-              tempus vel dictum consectetur, consectetur a sem. Vivamus lacinia
-              rutrum justo sed iaculis. Ut eget magna vel elit suscipit
-              scelerisque.
+            "Your One-Stop HR Solution – From Talent Acquisition to Employee Engagement, We Streamline Your Workforce for Success!"
             </Typography>
 
             <Grid container spacing={3} sx={{ marginTop: '30px' }}>
@@ -210,7 +212,7 @@ const About = () => {
                       Powerful Partners
                     </Typography>
                     <Typography sx={{ color: '#6c757d' }}>
-                      Vestibulum morbi blandit cursus risus.
+                    "Empowering Success Through Strong Partnerships."
                     </Typography>
                   </CardContent>
                 </Card>
@@ -240,14 +242,14 @@ const About = () => {
                       Strategic Planning
                     </Typography>
                     <Typography sx={{ color: '#6c757d' }}>
-                      Vestibulum morbi blandit cursus risus.
+                    "Strategic Planning: Charting the Path to Success."
                     </Typography>
                   </CardContent>
                 </Card>
               </Grid>
             </Grid>
 
-            <Button
+            <Button onClick={() => navigate("/contactUs")}
               variant="contained"
               sx={{
                 backgroundColor: '#007bff',
@@ -301,6 +303,7 @@ const About = () => {
                 py: 1,
                 backgroundColor: '#064E3B',
               }}
+              onClick={() => navigate("/service")}
             >
               SERVICES DETAILS
             </Button>
@@ -370,17 +373,7 @@ const About = () => {
               md={4}
               sx={{ display: 'flex', justifyContent: 'flex-start' }}
             >
-              {/* <Avatar
-                src="Leader.png" // Tumhara image path
-                alt="Sangita Butani"
-                sx={{
-                  width: 370,
-                  height: 380,                
-                  border: '4px solid white',
-                  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
-                  ml: { md: -15 }, // Image ko aur left shift kiya
-                }}
-              /> */}
+             
               <Avatar
   src="leader1.jpg"
   alt="Sangita Butani"
