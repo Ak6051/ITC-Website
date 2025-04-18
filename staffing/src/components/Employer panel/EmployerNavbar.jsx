@@ -44,12 +44,6 @@ const EmployerNavbar = () => {
             <MenuItem onClick={() => { navigate('/edit-profile'); handleMenuClose(); }}>
               Edit Profile
             </MenuItem>
-            <MenuItem onClick={() => { navigate('/recruiter-messages'); handleMenuClose(); }}>
-              Recruiter Messages
-            </MenuItem>
-            <MenuItem onClick={() => { navigate('/change-password'); handleMenuClose(); }}>
-              Change Password
-            </MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Box>

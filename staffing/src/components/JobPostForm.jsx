@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Box,
   TextField,
@@ -8,45 +7,142 @@ import {
   Typography,
   Paper,
   Grid,
-} from "@mui/material";
-import RecruiterDashNav from "../Pages/RecruiterDashNav";
-import axios from "axios";
+} from '@mui/material';
+import RecruiterDashNav from '../Pages/RecruiterDashNav';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const JobPostForm = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    requirement: "",
-    description: "",
-    experience: "",
-    location: "",
-    companyName: "",
-    status: "Open",
+    title: '',
+    department: '',
+    numberOfOpenings: '',
+    jobType: '',
+    salary: '',
+    educationalQualification: '',
+    experienceRequired: '',
+    jobLocation: '',
+    description: '',
+    status: 'active',
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async () => {
+  //   try {
+  //     const token = localStorage.getItem('token');
+  //     if (!token) {
+  //       alert('User is not authenticated!');
+  //       return;
+  //     }
+
+  //     const decodedToken = jwtDecode(token);
+  //     const recruiterId = decodedToken.userId;
+
+  //     if (!recruiterId) {
+  //       alert('Recruiter ID not found!');
+  //       return;
+  //     }
+
+  //     // Generate a unique jobId
+  //     const jobId = `JOB-${Date.now()}`;
+
+  //     const response = await axios.post(
+  //       'http://localhost:5000/api/recruiter/job',
+  //       { ...formData, recruiterId, jobId }, // ✅ Include jobId
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+
+  //     alert('Job Posted Successfully!');
+  //     console.log(response.data);
+
+  //     setFormData({
+  //       title: '',
+  //       department: '',
+  //       numberOfOpenings: '',
+  //       jobType: '',
+  //       salary: '',
+  //       educationalQualification: '',
+  //       experienceRequired: '',
+  //       jobLocation: '',
+  //       description: '',
+  //       status: 'active',
+  //     });
+  //   } catch (error) {
+  //     console.error('Error posting job:', error);
+  //     alert('Failed to post job.');
+  //   }
+  // };
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/recruiter/job",
-        formData
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('User is not authenticated!');
+        return;
+      }
+
+      const decodedToken = jwtDecode(token);
+      const recruiterId = decodedToken.userId;
+
+      if (!recruiterId) {
+        alert('Recruiter ID not found!');
+        return;
+      }
+
+      // Generate a unique jobId
+      const jobId = `JOB-${Date.now()}`;
+
+      // Recruiter API (With Auth)
+      const recruiterApiCall = axios.post(
+        'http://localhost:5000/api/recruiter/job',
+        { ...formData, recruiterId, jobId },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-      alert("Job Posted Successfully!");
-      console.log(response.data);
+
+      // Public Job API (Without Auth)
+      const publicJobApiCall = axios.post(
+        'http://localhost:5000/api/jobs/post-job',
+        { ...formData, jobId, postedByRole: 'recruiter' }
+      );
+
+      // Execute both API calls in parallel
+      const [recruiterRes, publicRes] = await Promise.all([
+        recruiterApiCall,
+        publicJobApiCall,
+      ]);
+
+      alert('✅ Job Posted Successfully!');
+      console.log('Recruiter API Response:', recruiterRes.data);
+      console.log('Public API Response:', publicRes.data);
+
+      // Reset Form
       setFormData({
-        title: "",
-        requirement: "",
-        description: "",
-        experience: "",
-        location: "",
-        companyName: "",
-        status: "active",
+        title: '',
+        department: '',
+        numberOfOpenings: '',
+        jobType: '',
+        salary: '',
+        educationalQualification: '',
+        experienceRequired: '',
+        jobLocation: '',
+        description: '',
+        status: 'active',
       });
     } catch (error) {
-      console.error("Error posting job:", error);
-      alert("Failed to post job.");
+      console.error('❌ Error posting job:', error);
+      alert(error.response?.data?.message || 'Failed to post job.');
     }
   };
 
@@ -54,46 +150,47 @@ const JobPostForm = () => {
     <>
       <RecruiterDashNav />
 
-      {/* Main Layout */}
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-          padding: "20px",
-          background: "#F8F8F8",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh',
+          padding: '20px',
+          background: '#F8F8F8',
         }}
       >
         <Paper
           elevation={3}
           sx={{
-            width: "100%",
-            maxWidth: "1000px",
-            padding: "20px",
-            borderRadius: "10px",
-            background: "#fff",
+            width: '100%',
+            maxWidth: '1000px',
+            padding: '20px',
+            borderRadius: '10px',
+            background: '#fff',
           }}
         >
           <Grid container spacing={3}>
-            {/* Left Sidebar (Responsive) */}
+            {/* Sidebar */}
             <Grid item xs={12} md={4}>
               <Box
                 sx={{
-                  padding: "20px",
-                  background: "#E7F0FA",
-                  borderRadius: "10px",
-                  textAlign: "center",
+                  padding: '20px',
+                  background: '#E7F0FA',
+                  borderRadius: '10px',
+                  textAlign: 'center',
                 }}
               >
                 <Typography variant="h6" sx={{ mb: 2 }}>
                   Job Posting Tips
                 </Typography>
                 <Typography variant="body2">
-                  ✅ Ensure the job title is clear.<br />
-                  ✅ Mention key requirements properly.<br />
-                  ✅ Provide a detailed job description.<br />
-                  ✅ Specify experience levels & location.
+                  ✅ Use clear and concise job titles.
+                  <br />
+                  ✅ Specify the department and location.
+                  <br />
+                  ✅ Provide detailed job descriptions.
+                  <br />✅ Mention the required experience and salary.
                 </Typography>
               </Box>
             </Grid>
@@ -104,11 +201,11 @@ const JobPostForm = () => {
                 <Typography
                   variant="h6"
                   sx={{
-                    background: "#E7F0FA",
-                    padding: "10px",
-                    borderRadius: "5px",
+                    background: '#E7F0FA',
+                    padding: '10px',
+                    borderRadius: '5px',
                     mb: 2,
-                    textAlign: "center",
+                    textAlign: 'center',
                   }}
                 >
                   Job Details
@@ -125,9 +222,83 @@ const JobPostForm = () => {
 
                 <TextField
                   fullWidth
-                  label="Job Requirement"
-                  name="requirement"
-                  value={formData.requirement}
+                  label="Department"
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                  margin="normal"
+                />
+
+                <TextField
+                  fullWidth
+                  label="Number of Openings"
+                  name="numberOfOpenings"
+                  type="number"
+                  value={formData.numberOfOpenings}
+                  onChange={handleChange}
+                  margin="normal"
+                />
+
+                <TextField
+                  fullWidth
+                  select
+                  label="Job Type"
+                  name="jobType"
+                  value={formData.jobType}
+                  onChange={handleChange}
+                  margin="normal"
+                >
+                  <MenuItem value="Full-time">Full-time</MenuItem>
+                  <MenuItem value="Part-time">Part-time</MenuItem>
+                  <MenuItem value="Contract">Contract</MenuItem>
+                </TextField>
+
+                <TextField
+                  fullWidth
+                  label="Salary"
+                  name="salary"
+                  value={formData.salary}
+                  onChange={handleChange}
+                  margin="normal"
+                />
+
+                <TextField
+                  fullWidth
+                  select
+                  label="Educational Qualification"
+                  name="educationalQualification"
+                  value={formData.educationalQualification}
+                  onChange={handleChange}
+                  margin="normal"
+                >
+                  <MenuItem value="SSC">SSC</MenuItem>
+                  <MenuItem value="HSC">HSC</MenuItem>
+                  <MenuItem value="Graduate">Graduate</MenuItem>
+                  <MenuItem value="Post Graduate">Post Graduate</MenuItem>
+                  <MenuItem value="Diploma">Diploma</MenuItem>
+                  <MenuItem value="Other">Other</MenuItem>
+                </TextField>
+
+                <TextField
+                  fullWidth
+                  select
+                  label="Experience Required"
+                  name="experienceRequired"
+                  value={formData.experienceRequired}
+                  onChange={handleChange}
+                  margin="normal"
+                >
+                  <MenuItem value="Fresher">Fresher</MenuItem>
+                  <MenuItem value="1-3 Years">1-3 Years</MenuItem>
+                  <MenuItem value="3-5 Years">3-5 Years</MenuItem>
+                  <MenuItem value="5+ Years">5+ Years</MenuItem>
+                </TextField>
+
+                <TextField
+                  fullWidth
+                  label="Job Location"
+                  name="jobLocation"
+                  value={formData.jobLocation}
                   onChange={handleChange}
                   margin="normal"
                 />
@@ -145,33 +316,6 @@ const JobPostForm = () => {
 
                 <TextField
                   fullWidth
-                  label="Experience"
-                  name="experience"
-                  value={formData.experience}
-                  onChange={handleChange}
-                  margin="normal"
-                />
-
-                <TextField
-                  fullWidth
-                  label="Location"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  margin="normal"
-                />
-
-                <TextField
-                  fullWidth
-                  label="Company Name"
-                  name="companyName"
-                  value={formData.companyName}
-                  onChange={handleChange}
-                  margin="normal"
-                />
-
-                <TextField
-                  fullWidth
                   select
                   label="Status"
                   name="status"
@@ -179,14 +323,14 @@ const JobPostForm = () => {
                   onChange={handleChange}
                   margin="normal"
                 >
-                  <MenuItem value="Open">Active</MenuItem>
-                  <MenuItem value="Closed">Closed</MenuItem>
+                  <MenuItem value="active">Active</MenuItem>
+                  <MenuItem value="closed">Closed</MenuItem>
                 </TextField>
 
                 <Button
                   variant="contained"
                   fullWidth
-                  sx={{ mt: 2, backgroundColor: "#007bff" }}
+                  sx={{ mt: 2, backgroundColor: '#007bff' }}
                   onClick={handleSubmit}
                 >
                   Submit Job Post

@@ -12,8 +12,8 @@ const ContactUs = () => {
       <Box
         sx={{
           width: "99vw",
-          height: { xs: "250px", md: "550px" },
-          backgroundImage: `url(https://img.freepik.com/free-photo/contact-us-communication-support-service-assistance-concept_53876-128103.jpg?t=st=1743012823~exp=1743016423~hmac=672d05e4e47bf187b718dc1a81c8e3c988698b5b0d7cc93099ac631a1119e535&w=1380)`,
+          height: { xs: "250px", md: "680px" },
+          backgroundImage: `url(contact.jpg)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

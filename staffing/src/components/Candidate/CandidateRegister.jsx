@@ -1,181 +1,209 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 import {
-  Box,
+  Container,
+  Grid,
+  Paper,
+  Typography,
   TextField,
   Button,
-  Typography,
-  Paper,
-  MenuItem,
-  FormControlLabel,
-  Checkbox,
-  Grid,
-  Card,
-  CardContent,
-} from "@mui/material";
-import WorkIcon from "@mui/icons-material/Work";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import { useNavigate } from "react-router-dom";
+  Box,
+  Input,
+  IconButton,
+} from '@mui/material';
+import { CloudUpload } from '@mui/icons-material';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const Step1 = () => {
-  const [formData, setFormData] = useState({});
+const Register = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem("candidateFormData")) || {};
-    setFormData(savedData);
-  }, []);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobileNo: '',
+    password: '',
+    resume: null,
+  });
 
-  const handleInputChange = (e) => {
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleNext = () => {
-    localStorage.setItem("candidateFormData", JSON.stringify(formData));
-    navigate("/st2");
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, resume: e.target.files[0] });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const mobilePattern = /^[6-9]\d{9}$/;
+
+    if (!mobilePattern.test(formData.mobileNo)) {
+      setErrors({
+        mobileNo: 'Invalid mobile number. Must be 10 digits starting from 6-9.',
+      });
+      toast.error('Please enter a valid mobile number');
+      return;
+    } else {
+      setErrors({});
+    }
+
+    const formDataToSend = new FormData();
+    formDataToSend.append('firstName', formData.firstName);
+    formDataToSend.append('lastName', formData.lastName);
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('mobileNo', formData.mobileNo);
+    formDataToSend.append('password', formData.password);
+    formDataToSend.append('resume', formData.resume);
+
+    try {
+      await axios.post(
+        'http://localhost:5000/api/candidate/register',
+        formDataToSend,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }
+      );
+
+      localStorage.setItem('email', formData.email);
+      localStorage.setItem('mobileNo', formData.mobileNo);
+
+      toast.success('User registered successfully!');
+      navigate('/open-job');
+    } catch (error) {
+      toast.error('Registration failed');
+    }
   };
 
   return (
-    <Grid
-      container
-      spacing={4}
+    <Box
       sx={{
-        background: "linear-gradient(135deg, #E3F2FD 30%, #BBDEFB 100%)",
-        minHeight: "100vh",
-        padding: { xs: 3, md: 5 },
-        alignItems: "center",
-        justifyContent: "center",
+        minHeight: '100vh',
+        backgroundColor: '#203A43',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      {/* Left Section */}
-      <Grid item xs={12} md={6} textAlign="center">
-        <Typography variant="h3" fontWeight="bold" color="#0D47A1" gutterBottom>
-          Your Dream Job Awaits!
-        </Typography>
-        <Typography variant="h6" color="#FFD700">
-          Upload Your Resume for Free!
-        </Typography>
-        <Grid container spacing={2} justifyContent="center" mt={3}>
-          {[  
-            { icon: <WorkIcon sx={{ fontSize: 30, color: "#0D47A1" }} />, text: "Build a profile that attracts top recruiters" },
-            { icon: <BusinessCenterIcon sx={{ fontSize: 30, color: "#0D47A1" }} />, text: "Find top jobs that match your skills" },
-            { icon: <VerifiedUserIcon sx={{ fontSize: 30, color: "#0D47A1" }} />, text: "Verified companies looking for top talent" },
-          ].map((item, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Card elevation={4} sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: 2,
-                backgroundColor: "#FFFFFF",
-                borderRadius: 2,
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-                borderBottom: "5px solid #FFD700",
-              }}>
-                {item.icon}
-                <CardContent>
-                  <Typography fontSize={16} color="#0D47A1">{item.text}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Grid>
-
-      {/* Right Section - Form */}
-      <Grid item xs={12} md={5}>
-        <Paper
-          elevation={6}
-          sx={{
-            padding: 4,
-            borderRadius: 3,
-            width: "100%",
-            maxWidth: 450,
-            mx: "auto",
-            backgroundColor: "#FAFAFA",
-            boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.3)",
-          }}
-        >
-          <Typography variant="h5" fontWeight="bold" color="#0D47A1" textAlign="center" gutterBottom>
-            Post Your Resume <span style={{ color: "#FFD700" }}>Free !!</span>
-          </Typography>
-          
-          <TextField
-            fullWidth
-            label="Your Name"
-            name="name"
-            value={formData.name || ""}
-            onChange={handleInputChange}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            select
-            label="Gender"
-            name="gender"
-            value={formData.gender || ""}
-            onChange={handleInputChange}
-            margin="normal"
-            variant="outlined"
-          >
-            <MenuItem value="Male">Male</MenuItem>
-            <MenuItem value="Female">Female</MenuItem>
-          </TextField>
-          <TextField
-            fullWidth
-            label="Your Mobile Number"
-            name="mobile"
-            value={formData.mobile || ""}
-            onChange={handleInputChange}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            label="Your Email ID"
-            name="email"
-            value={formData.email || ""}
-            onChange={handleInputChange}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            type="password"
-            label="Password"
-            name="password"
-            value={formData.password || ""}
-            onChange={handleInputChange}
-            margin="normal"
-            variant="outlined"
-          />
-          <FormControlLabel
-            control={<Checkbox sx={{ color: "#0D47A1" }} />}
-            label="Agree to Terms & Conditions"
-            sx={{ display: "block", mt: 1, color: "#0D47A1" }}
-          />
-          <Button
-            variant="contained"
-            fullWidth
+      <Container maxWidth="lg">
+        <Grid container spacing={4}>
+          {/* Left Side Content */}
+          <Grid
+            item
+            xs={12}
+            md={6}
             sx={{
-              mt: 3,
-              py: 1.5,
-              fontSize: "1rem",
-              backgroundColor: "#0D47A1",
-              '&:hover': { backgroundColor: "#0B3D91" },
-              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              color: '#fff',
+              marginTop:"100px"
             }}
-            onClick={handleNext}
           >
-            Continue →
-          </Button>
-        </Paper>
-      </Grid>
-    </Grid>
+            <Typography variant="h3" fontWeight="bold" gutterBottom>
+              Join Our Platform
+            </Typography>
+            <Typography variant="body1" color="inherit" paragraph>
+              Register today to get access to exclusive job offers and upload
+              your resume to apply instantly.
+            </Typography>
+          </Grid>
+
+          {/* Right Side Form */}
+          <Grid item xs={12} md={6} sx={{ mt: 9 }}>
+            <Paper elevation={6} sx={{ p: 4, borderRadius: 3 }}>
+              <Typography variant="h5" fontWeight="bold" gutterBottom>
+                Register
+              </Typography>
+              <Box component="form" onSubmit={handleSubmit} noValidate>
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="First Name"
+                  name="firstName"
+                  onChange={handleChange}
+                  required
+                />
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Last Name"
+                  name="lastName"
+                  onChange={handleChange}
+                  required
+                />
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Email"
+                  name="email"
+                  type="email"
+                  onChange={handleChange}
+                  required
+                />
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Mobile No"
+                  name="mobileNo"
+                  onChange={handleChange}
+                  required
+                  error={!!errors.mobileNo}
+                  helperText={errors.mobileNo}
+                />
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Password"
+                  name="password"
+                  type="password"
+                  onChange={handleChange}
+                  required
+                />
+
+                <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
+                  <Input
+                    type="file"
+                    onChange={handleFileChange}
+                    inputProps={{ accept: '.pdf,.doc,.docx' }}
+                    sx={{ display: 'none' }}
+                    id="resume-upload"
+                  />
+                  <label htmlFor="resume-upload">
+                    <IconButton component="span" color="primary">
+                      <CloudUpload />
+                    </IconButton>
+                  </label>
+                  <Typography variant="body2" sx={{ ml: 1 }}>
+                    {formData.resume ? formData.resume.name : 'Upload Resume'}
+                  </Typography>
+                </Box>
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{
+                    mt: 3,
+                    backgroundColor: '#1976d2',
+                    color: 'white',
+                    '&:hover': { backgroundColor: '#1565c0' },
+                  }}
+                >
+                  Register
+                </Button>
+              </Box>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 
-export default Step1;
+export default Register;

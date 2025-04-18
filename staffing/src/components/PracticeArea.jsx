@@ -130,7 +130,7 @@ export default function PracticeAreas() {
               <Typography variant="h4" fontWeight={600} sx={{ mb: 2 }}>
                 {section.title}
               </Typography>
-              <Typography variant="body1">{section.content}</Typography>
+              {/* <Typography variant="body1">{section.content}</Typography> */}
             </Box>
           </Box>
         ))}

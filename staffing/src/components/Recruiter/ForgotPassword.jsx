@@ -1,120 +1,96 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box, CircularProgress, Grid, Paper } from '@mui/material';
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Card,
+  CardContent,
+  Grid,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
 
-  const handleSendOTP = async () => {
-    if (!email) {
-      toast.error('Please enter your email');
-      return;
-    }
-
-    setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/recruiter/forgot-password', { email });
-
-      toast.success(res.data.message);
-
-      localStorage.setItem('forgotEmail', email);
-      navigate('/reset-password');
+      const res = await axios.post(
+        'http://localhost:5000/api/recruiter/forgot-password',
+        { email }
+      );
+      alert(res.data.message);
+      navigate('/otp-verify', { state: { email } }); // Redirect to OTP Verification Page
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to send OTP');
-    } finally {
-      setLoading(false);
+      alert(error.response?.data?.message || 'Something went wrong!');
     }
   };
 
   return (
     <>
-      {/* Top Section with Image */}
       <Box
         sx={{
-          backgroundImage: `url(https://hireox.themeht.com/wp-content/uploads/2024/12/hero02-img01.jpg)`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'top',
-          height: { xs: '300px', sm: '450px', md: '650px' },
-          width: '100%',
+          height: { xs: '25vh', sm: '30vh', md: '80vh' }, // Adjust height for different screens
+          background: 'url(service.jpg) no-repeat center center/cover',
+          color: '#fff',
           display: 'flex',
-          alignItems: 'center',
+          flexDirection: 'column',
           justifyContent: 'center',
-          color: 'white',
+          alignItems: 'center',
           textAlign: 'center',
-          textShadow: '2px 2px 10px rgba(0,0,0,0.7)',
-          fontSize: { xs: '1.5rem', sm: '2rem', md: '2.8rem' },
-          fontWeight: 'bold',
+          p: { xs: 2, sm: 3, md: 4 }, // Adjust padding
         }}
       >
-        Forgot Password
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 'bold',
+            fontSize: { xs: '1.5rem', sm: '2rem', md: '3rem' }, // Responsive font size
+            marginTop: '15vh',
+          }}
+        >
+          Recruiter Forgot Password
+        </Typography>
       </Box>
-
-      {/* Main Section with Form and Left Content */}
-      <Container maxWidth="lg" sx={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', mt: -10 }}>
-        <Paper elevation={3} sx={{ width: '100%', p: { xs: 3, md: 5 }, borderRadius: '12px', overflow: 'hidden' }}>
-          <Grid container>
-            {/* Left Side Content */}
-            <Grid item xs={12} md={6} sx={{
-              backgroundColor: '#f5f5f5',
-              minHeight: { xs: '200px', md: '100%' },
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-              p: 4
-            }}>
-              <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
-                Reset Your Password
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{ minHeight: '70vh' }}
+      >
+        <Grid item xs={12} sm={6} md={4}>
+          <Card elevation={10} sx={{ borderRadius: 6, padding: 4 }}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Forgot Password?
               </Typography>
-              <Typography variant="body1" sx={{ opacity: 0.8, fontSize: '1rem' }}>
-                Enter your registered email to receive a One-Time Password (OTP) and reset your password securely.
+              <Typography variant="body2" sx={{ mb: 3 }}>
+                Enter your email to receive an OTP.
               </Typography>
-            </Grid>
-
-            {/* Right Side Form */}
-            <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', p: 4 }}>
-              <Typography variant="h5" align="center" fontWeight="bold" sx={{ mb: 3 }}>
-                Forgot Password
-              </Typography>
-
-              <Box component="form" noValidate sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              <Box component="form" onSubmit={handleSubmit}>
                 <TextField
                   label="Email"
                   type="email"
                   fullWidth
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                   required
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-
                 <Button
-                  onClick={handleSendOTP}
+                  type="submit"
                   variant="contained"
-                  color="primary"
                   fullWidth
-                  disabled={loading}
-                  sx={{
-                    bgcolor: '#FF5722',
-                    '&:hover': { bgcolor: '#E64A19' },
-                    color: 'white',
-                    fontSize: '1rem',
-                    transition: '0.3s'
-                  }}
+                  sx={{ mt: 2 }}
                 >
-                  {loading ? <CircularProgress size={24} color="inherit" /> : 'Send OTP'}
+                  Send OTP
                 </Button>
               </Box>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Container>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </>
   );
 };

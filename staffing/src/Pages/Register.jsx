@@ -1,12 +1,22 @@
-
 import React, { useState } from 'react';
-import { Box, Typography, TextField, Button, Paper, Grid, Avatar, Divider, Link as MuiLink } from '@mui/material';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Grid,
+  Avatar,
+  Divider,
+  Link as MuiLink,
+} from '@mui/material';
 import { PersonAdd } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import RecruiterDashNav from './RecruiterDashNav';
 
 const RecruiterRegister = () => {
   const navigate = useNavigate();
@@ -25,132 +35,175 @@ const RecruiterRegister = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/recruiter/recruiter-register', formData);
+      const response = await axios.post(
+        'http://localhost:5000/api/recruiter/recruiter-register',
+        formData
+      );
       toast.success('Registration Successful');
-      navigate('/login');
+      navigate('/recruiter');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Registration failed');
     }
   };
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      sx={{
-        minHeight: '100vh',
-        background: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
-        padding: { xs: '0 5%', md: '0 10%' }
-      }}
-    >
-      <Grid container spacing={4} justifyContent="center" alignItems="center">
-        {/* Left Content Section */}
-        <Grid item xs={12} md={6} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-            <Typography
-              variant="h3"
-              sx={{
-                color: 'white',
-                fontWeight: 'bold',
-                mb: 2,
-                fontSize: { xs: '2rem', md: '3rem' }
-              }}
+    <>
+      <RecruiterDashNav />
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          minHeight: '100vh',
+          background: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)',
+          padding: { xs: '0 5%', md: '0 10%' },
+        }}
+      >
+        <Grid container spacing={4} justifyContent="center" alignItems="center">
+          {/* Left Content Section */}
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{ textAlign: { xs: 'center', md: 'left' } }}
+          >
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              Join Our Recruiter Network
-            </Typography>
-            <Typography
-              variant="h6"
-              sx={{
-                color: 'white',
-                opacity: 0.8,
-                mb: 3,
-                fontSize: { xs: '1rem', md: '1.25rem' }
-              }}
-            >
-              Create an account to find top talent quickly and efficiently.
-            </Typography>
-          </motion.div>
-        </Grid>
-
-        {/* Registration Form Section */}
-        <Grid item xs={12} md={6}>
-          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-          <Paper 
-  elevation={6} 
-  sx={{ 
-    width: { xs: '85%', sm: '75%', md: 400 }, 
-    mx: 'auto', 
-    my: { xs: 4, md: 6 }, // Reduced top and bottom margin
-    p: { xs: 2, md: 3 }, 
-    borderRadius: 4, 
-    boxShadow: '0 6px 25px rgba(0,0,0,0.3)', 
-    background: 'rgba(255, 255, 255, 0.95)' 
-  }}
->
-
-
-              <Box display="flex" justifyContent="center" mb={2}>
-                <Avatar sx={{ bgcolor: '#2C5364', width: 60, height: 60 }}>
-                  <PersonAdd />
-                </Avatar>
-              </Box>
               <Typography
-                variant="h4"
-                mb={3}
-                align="center"
+                variant="h3"
                 sx={{
+                  color: 'white',
                   fontWeight: 'bold',
-                  color: '#203A43',
-                  fontSize: { xs: '1.8rem', md: '2.125rem' }
+                  mb: 2,
+                  fontSize: { xs: '2rem', md: '3rem' },
                 }}
               >
-                Recruiter Register
+                Join Our Recruiter Network
               </Typography>
-              <Divider sx={{ mb: 3 }} />
-              <Box component="form" onSubmit={handleSubmit}>
-                <TextField fullWidth label="Full Name" name="name" onChange={handleChange} margin="normal" variant="outlined" required />
-                <TextField fullWidth label="Company Email" type="email" name="email" onChange={handleChange} margin="normal" variant="outlined" required />
-                <TextField fullWidth label="Mobile Number" name="mobile" onChange={handleChange} margin="normal" variant="outlined" required />
-                <TextField fullWidth label="Password" type="password" name="password" onChange={handleChange} margin="normal" variant="outlined" required />
-                <TextField fullWidth label="Location" name="location" onChange={handleChange} margin="normal" variant="outlined" required />
+              <Typography
+                variant="h6"
+                sx={{
+                  color: 'white',
+                  opacity: 0.8,
+                  mb: 3,
+                  fontSize: { xs: '1rem', md: '1.25rem' },
+                }}
+              >
+                Create an account to find top talent quickly and efficiently.
+              </Typography>
+            </motion.div>
+          </Grid>
 
-                <Button
-                  type="submit"
-                  variant="contained"
-                  fullWidth
+          {/* Registration Form Section */}
+          <Grid item xs={12} md={6} sx={{ mt: 8 }}>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Paper
+                elevation={6}
+                sx={{
+                  width: { xs: '85%', sm: '75%', md: 400 },
+                  mx: 'auto',
+                  my: { xs: 4, md: 6 }, // Reduced top and bottom margin
+                  p: { xs: 2, md: 3 },
+                  borderRadius: 4,
+                  boxShadow: '0 6px 25px rgba(0,0,0,0.3)',
+                  background: 'rgba(255, 255, 255, 0.95)',
+                }}
+              >
+                <Box display="flex" justifyContent="center" mb={2}>
+                  <Avatar sx={{ bgcolor: '#2C5364', width: 60, height: 60 }}>
+                    <PersonAdd />
+                  </Avatar>
+                </Box>
+                <Typography
+                  variant="h4"
+                  mb={3}
+                  align="center"
                   sx={{
-                    mt: 3,
-                    backgroundColor: '#2C5364',
-                    '&:hover': { backgroundColor: '#0F2027' },
-                    py: 1.5,
-                    fontSize: '1.1rem'
-                  }}
-                >
-                  Register
-                </Button>
-              </Box>
-              <Divider sx={{ my: 3 }}>OR</Divider>
-              <Typography align="center">
-                Already have an account?
-                <MuiLink
-                  href="/login"
-                  sx={{
-                    color: '#2C5364',
                     fontWeight: 'bold',
-                    textDecoration: 'none',
-                    '&:hover': { textDecoration: 'underline' }
+                    color: '#203A43',
+                    fontSize: { xs: '1.8rem', md: '2.125rem' },
                   }}
                 >
-                  Login Here
-                </MuiLink>
-              </Typography>
-            </Paper>
-          </motion.div>
+                  Recruiter Register
+                </Typography>
+                <Divider sx={{ mb: 3 }} />
+                <Box component="form" onSubmit={handleSubmit}>
+                  <TextField
+                    fullWidth
+                    label="Full Name"
+                    name="name"
+                    onChange={handleChange}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                  />
+                  <TextField
+                    fullWidth
+                    label="Company Email"
+                    type="email"
+                    name="email"
+                    onChange={handleChange}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                  />
+                  <TextField
+                    fullWidth
+                    label="Mobile Number"
+                    name="mobile"
+                    onChange={handleChange}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                  />
+                  <TextField
+                    fullWidth
+                    label="Password"
+                    type="password"
+                    name="password"
+                    onChange={handleChange}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                  />
+                  <TextField
+                    fullWidth
+                    label="Location"
+                    name="location"
+                    onChange={handleChange}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                  />
+
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    sx={{
+                      mt: 3,
+                      backgroundColor: '#2C5364',
+                      '&:hover': { backgroundColor: '#0F2027' },
+                      py: 1.5,
+                      fontSize: '1.1rem',
+                    }}
+                  >
+                    Register
+                  </Button>
+                </Box>
+              </Paper>
+            </motion.div>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
-
+    </>
   );
 };
 

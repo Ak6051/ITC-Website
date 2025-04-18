@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { DataGrid } from "@mui/x-data-grid";
-import { Box, Typography, CircularProgress, Alert } from "@mui/material";
-import RecruiterDashNav from "../Pages/RecruiterDashNav";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { DataGrid } from '@mui/x-data-grid';
+import { Box, Typography, CircularProgress, Alert } from '@mui/material';
+import RecruiterDashNav from '../Pages/RecruiterDashNav';
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
@@ -12,11 +12,13 @@ const JobList = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/recruiter/all");
+        const response = await axios.get(
+          'http://localhost:5000/api/recruiter/all'
+        );
         setJobs(response.data);
       } catch (error) {
-        setError("Error fetching job data.");
-        console.error("API fetch error:", error);
+        setError('Error fetching job data.');
+        console.error('API fetch error:', error);
       } finally {
         setLoading(false);
       }
@@ -26,19 +28,26 @@ const JobList = () => {
   }, []);
 
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "title", headerName: "Job Title", width: 200 },
-    { field: "requirement", headerName: "Requirement", width: 250 },
-    { field: "description", headerName: "Description", width: 250 },
-    { field: "experience", headerName: "Experience", width: 150 },
-    { field: "location", headerName: "Location", width: 150 },
-    { field: "companyName", headerName: "Company", width: 200 },
+    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'title', headerName: 'Job Title', width: 200 },
+    { field: 'department', headerName: 'Department', width: 200 },
+    { field: 'numberOfOpenings', headerName: 'Openings', width: 130 },
+    { field: 'jobType', headerName: 'Job Type', width: 150 },
+    { field: 'salary', headerName: 'Salary', width: 150 },
     {
-      field: "status",
-      headerName: "Status",
+      field: 'educationalQualification',
+      headerName: 'Qualification',
+      width: 200,
+    },
+    { field: 'experienceRequired', headerName: 'Experience', width: 200 },
+    { field: 'jobLocation', headerName: 'Location', width: 200 },
+    { field: 'description', headerName: 'Description', width: 250 },
+    {
+      field: 'status',
+      headerName: 'Status',
       width: 120,
       renderCell: (params) => (
-        <span style={{ color: params.value === "active" ? "green" : "red" }}>
+        <span style={{ color: params.value === 'active' ? 'green' : 'red' }}>
           {params.value}
         </span>
       ),
@@ -46,33 +55,47 @@ const JobList = () => {
   ];
 
   // Assign unique ID for DataGrid
-  const rows = jobs.map((job, index) => ({ id: index + 1, ...job }));
+  const rows = jobs.map((job, index) => ({
+    id: index + 1,
+    title: job.title,
+    department: job.department,
+    numberOfOpenings: job.numberOfOpenings,
+    jobType: job.jobType,
+    salary: job.salary,
+    educationalQualification: job.educationalQualification,
+    experienceRequired: job.experienceRequired,
+    jobLocation: job.jobLocation,
+    description: job.description,
+    status: job.status,
+  }));
 
   return (
     <>
-    <RecruiterDashNav/>
-    <Box sx={{ height: 500, width: "100%", padding: 3 }}>
-      <Typography variant="h4" gutterBottom align="center">
-        Job Listings
-      </Typography>
+      <RecruiterDashNav />
+      <Box sx={{ height: 500, width: '100%', padding: 3 }}>
+        <Typography variant="h4" gutterBottom align="center">
+          Job Listings
+        </Typography>
 
-      {loading && <CircularProgress sx={{ display: "block", margin: "20px auto" }} />}
-      {error && <Alert severity="error">{error}</Alert>}
+        {loading && (
+          <CircularProgress sx={{ display: 'block', margin: '20px auto' }} />
+        )}
+        {error && <Alert severity="error">{error}</Alert>}
 
-      {!loading && !error && (
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5, 10, 20]}
-          sx={{
-            backgroundColor: "#fff",
-            boxShadow: 3,
-            borderRadius: "10px",
-          }}
-        />
-      )}
-    </Box>
+        {!loading && !error && (
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5, 10, 20]}
+            sx={{
+              backgroundColor: '#fff',
+              boxShadow: 3,
+              borderRadius: '10px',
+            }}
+          />
+        )}
+      </Box>
     </>
   );
 };

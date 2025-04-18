@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import {
   Box,
   AppBar,
@@ -19,7 +19,7 @@ import {
   ListItemText,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
+} from '@mui/material';
 import {
   Dashboard,
   ArrowDropDown,
@@ -28,13 +28,13 @@ import {
   Visibility,
   Notifications,
   Business,
-} from "@mui/icons-material";
-import RecruiterDashNav from "../Pages/RecruiterDashNav";
+} from '@mui/icons-material';
+import RecruiterDashNav from '../Pages/RecruiterDashNav';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   // Dropdown state management
   const [jobAnchorEl, setJobAnchorEl] = useState(null);
@@ -44,31 +44,76 @@ const DashboardPage = () => {
 
   // Employer count state
   const [employerCount, setEmployerCount] = useState(0);
-  
+  const [openingsCount, setOpeningsCount] = useState(0);
+  const [totalJobs, setTotalJobs] = useState(0);
+  const [appliedJobs, setAppliedJobs] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userType = localStorage.getItem("userType");
+    const token = localStorage.getItem('token');
+    const userType = localStorage.getItem('userType');
 
-    if (!token || userType !== "recruiter") {
-        navigate("/login"); // Unauthorized users ko login pe bhejo
+    if (!token || userType !== 'recruiter') {
+      navigate('/login'); // Unauthorized users ko login pe bhejo
     }
-}, [navigate]);
+  }, [navigate]);
+
+  useEffect(() => {
+    const fetchAppliedJobs = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:5000/api/recruiter/'
+        );
+        setAppliedJobs(response.data.length);
+      } catch (error) {
+        console.error('Error fetching applied jobs:', error);
+      }
+    };
+
+    fetchAppliedJobs();
+  }, []);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/jobs/all');
+        setTotalJobs(response.data.length); // Total jobs count
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
 
   // Fetch employer count on component load
   useEffect(() => {
     const fetchEmployers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/employer/all-jobs"
+          'http://localhost:5000/api/employer/all-jobs'
         );
         setEmployerCount(response.data.length); // Total employers count
       } catch (error) {
-        console.log("Error fetching employers:", error);
+        console.log('Error fetching employers:', error);
       }
     };
 
     fetchEmployers();
+  }, []);
+
+  useEffect(() => {
+    const fetchJobOpenings = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:5000/api/jobs/openings-count'
+        );
+        setOpeningsCount(response.data.openings); // ✅ Only active jobs count
+      } catch (error) {
+        console.log('Error fetching job openings:', error);
+      }
+    };
+
+    fetchJobOpenings();
   }, []);
 
   const handleMenuOpen = (event, setAnchor) => {
@@ -80,11 +125,11 @@ const DashboardPage = () => {
   };
 
   const handleDashboardClick = () => {
-    navigate("/recruiter");
+    navigate('/recruiter');
   };
 
   const handleApplicantsIconClick = () => {
-    navigate("/employerUpdate");
+    navigate('/employerUpdate');
   };
 
   const toggleDrawer = (open) => {
@@ -93,8 +138,7 @@ const DashboardPage = () => {
 
   return (
     <Box>
-      
-      <RecruiterDashNav/>
+      <RecruiterDashNav />
 
       {/* Cards Section */}
       <Grid container spacing={3} p={3}>
@@ -102,7 +146,7 @@ const DashboardPage = () => {
           <Card>
             <CardContent>
               <Typography variant="h6">Current Openings</Typography>
-              <Typography variant="h4">1</Typography>
+              <Typography variant="h4">{openingsCount}</Typography>
               <Typography variant="body2">Total Jobs / Non-Active</Typography>
               <IconButton>
                 <Work />
@@ -113,7 +157,7 @@ const DashboardPage = () => {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent>
-              <Typography variant="h6">Applicants</Typography>
+              <Typography variant="h6">Employers Details</Typography>
               <Typography variant="h4">{employerCount}</Typography>
               <Typography variant="body2">Total Employers</Typography>
               <IconButton onClick={handleApplicantsIconClick}>
@@ -125,10 +169,10 @@ const DashboardPage = () => {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent>
-              <Typography variant="h6">Interview List</Typography>
-              <Typography variant="h4">0</Typography>
+              <Typography variant="h6">Manage Recruiter </Typography>
+              <Typography variant="h4">{appliedJobs}</Typography>
               <Typography variant="body2">Upcoming / Past</Typography>
-              <IconButton>
+              <IconButton onClick={() => navigate('/recruiter-table')}>
                 <Notifications />
               </IconButton>
             </CardContent>
@@ -137,10 +181,10 @@ const DashboardPage = () => {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent>
-              <Typography variant="h6">Inquiries</Typography>
-              <Typography variant="h4">0</Typography>
-              <Typography variant="body2">Read / Unread</Typography>
-              <IconButton>
+              <Typography variant="h6">Total Job Posted </Typography>
+              <Typography variant="h4">{totalJobs}</Typography>
+              <Typography variant="body2">Active/Close</Typography>
+              <IconButton onClick={() => navigate('/all-jobs')}>
                 <Business />
               </IconButton>
             </CardContent>

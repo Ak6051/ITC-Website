@@ -1,16 +1,14 @@
 
-
-
-
 const Employer = require("../models/employer.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { sendEmail } = require('../utils/emailService');
+const mongoose = require("mongoose");
 
 // Employer Registration
 const registerEmployer = async (req, res) => {
   try {
-    const { name, companyName, email, mobileNo, location, password } = req.body;
+    const { name, companyName, email, mobileNo, companyAddress, password } = req.body;
 
     // Check if employer already exists
     
@@ -28,7 +26,7 @@ const registerEmployer = async (req, res) => {
       companyName,
       email,
       mobileNo,
-      location,
+      companyAddress,
       password: hashedPassword,
       jobs: []
     });
@@ -53,7 +51,7 @@ const registerEmployer = async (req, res) => {
       <p><strong>Company Name:</strong> ${newEmployer.companyName}</p>
       <p><strong>Mobile No:</strong> ${newEmployer.mobileNo}</p>
       <p><strong>Email:</strong> ${newEmployer.email}</p>
-      <p><strong>Location:</strong> ${newEmployer.location}</p>
+      <p><strong>Company Address:</strong> ${newEmployer.companyAddress}</p>
       <p><strong>Registered At:</strong> ${new Date(newEmployer.createdAt).toLocaleString()}</p>
     `;
 
@@ -104,33 +102,41 @@ const loginEmployer = async (req, res) => {
 
 const addJob = async (req, res) => {
   try {
-    // Extract token from headers
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) return res.status(401).json({ message: "Unauthorized" });
+    const employer = await Employer.findById(req.employerId);
 
-    // Verify employer from token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const employer = await Employer.findById(decoded.id);
-    
     if (!employer) {
       return res.status(404).json({ message: "Employer not found" });
     }
 
-    // Add new job to employer's jobs array
-    const { title, requirement,experience, description, status } = req.body;
+    const { title, department, numberOfOpenings, jobType, salary, educationalQualification, experienceRequired, jobLocation, description } = req.body;
+
+    // Required fields validation
+    if (!title || !department || !numberOfOpenings || !jobType || !salary || !educationalQualification || !experienceRequired || !jobLocation || !description) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // Creating new job with employer ID
     const newJob = {
+      jobId: new mongoose.Types.ObjectId().toString(), // 👈 Unique jobId generate ho raha hai
       title,
-      requirement,
-      experience,
+      department,
+      numberOfOpenings,
+      jobType,
+      salary,
+      educationalQualification,
+      experienceRequired,
+      jobLocation,
       description,
-      
-      status: status || "active",
+      // postedBy: employer._id // 👈 Employer ka ID bhi store hoga
     };
 
     employer.jobs.push(newJob);
     await employer.save();
 
-    res.status(200).json({ message: "Job added successfully", employer });
+    // Getting newly created job's ID
+    const jobId = employer.jobs[employer.jobs.length - 1]._id;
+
+    res.status(201).json({ message: "Job added successfully", jobId, employerId: employer._id });
   } catch (error) {
     res.status(500).json({ message: "Error adding job", error: error.message });
   }

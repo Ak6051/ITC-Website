@@ -19,23 +19,39 @@ import { Groups, Psychology, Handshake, Insights,  Leaderboard } from "@mui/icon
 // 🔥 Hero Section (Background Image)
 const HeroSection = () => (
   <Box
+  sx={{
+    height: { xs: '160px', sm: '360px', md: '620px' }, 
+    background: 'url(service.jpg) no-repeat center center/cover',
+    color: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    p: { xs: 2, sm: 3, md: 4 }, // Adjust padding
+  }}
+>
+  <Typography
+    variant="h4"
     sx={{
-      height: '80vh',
-      background: `url(39.jpg) no-repeat center center/cover`,
-      color: '#fff',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      p: 4,
+      fontWeight: 'bold',
+      fontSize: { xs: '1.5rem', sm: '2rem', md: '3rem' }, // Responsive font size
+    marginTop:"15vh"
+    
     }}
   >
-    <Typography variant="h2" sx={{ fontWeight: 'bold' }}>Our Services</Typography>
-    <Typography variant="h5" sx={{ mt: 2 }}>
-      Empowering Your Business with Professional Solutions
-    </Typography>
-  </Box>
+    Our Services
+  </Typography>
+  <Typography
+    variant="h6"
+    sx={{
+      mt: 2,
+      fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' }, // Responsive font size
+    }}
+  >
+    Empowering Your Business with Professional Solutions
+  </Typography>
+</Box>
 );
 
 // 🛠️ Styled Service Box

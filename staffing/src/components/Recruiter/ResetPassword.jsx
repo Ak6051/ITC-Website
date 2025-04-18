@@ -1,77 +1,122 @@
-import React, { useState, useEffect } from 'react';
-import { Container, TextField, Button, Typography, Box, CircularProgress } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Card,
+  CardContent,
+  Grid,
+} from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
 
 const ResetPassword = () => {
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email || '';
 
-  // ✅ Get email from localStorage
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('resetEmail');
-    if (storedEmail) {
-      setEmail(storedEmail);
+  const [formData, setFormData] = useState({
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match!');
+      return;
     }
-  }, []);
 
-  const handleResetPassword = async () => {
-    setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/recruiter/reset-password', {
-        email,
-        otp,
-        newPassword
-      });
+      const res = await axios.post(
+        'http://localhost:5000/api/recruiter/reset-password',
+        {
+          email,
+          newPassword: formData.password,
+        }
+      );
 
-      if (res.status === 200) {
-        toast.success(res.data.message);
-
-        // ✅ Clear localStorage and redirect to login
-        localStorage.removeItem('resetEmail');
-        navigate('/login');
-      }
+      alert(res.data.message);
+      navigate('/login'); // Redirect to Login Page
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to reset password');
-    } finally {
-      setLoading(false);
+      alert(error.response?.data?.message || 'Something went wrong!');
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5 }}>
-      <Typography variant="h4" align="center" gutterBottom>Reset Password</Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <TextField
-          label="OTP"
-          variant="outlined"
-          fullWidth
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-        />
-        <TextField
-          label="New Password"
-          type="password"
-          variant="outlined"
-          fullWidth
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleResetPassword}
-          disabled={loading}
+    <>
+      <Box
+        sx={{
+          height: { xs: '25vh', sm: '30vh', md: '80vh' }, // Adjust height for different screens
+          background: 'url(service.jpg) no-repeat center center/cover',
+          color: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          p: { xs: 2, sm: 3, md: 4 }, // Adjust padding
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 'bold',
+            fontSize: { xs: '1.5rem', sm: '2rem', md: '3rem' }, // Responsive font size
+            marginTop: '15vh',
+          }}
         >
-          {loading ? <CircularProgress size={24} /> : 'Reset Password'}
-        </Button>
+          Recruiter Reset Password
+        </Typography>
       </Box>
-    </Container>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{ minHeight: '70vh' }}
+      >
+        <Grid item xs={12} sm={6} md={4}>
+          <Card elevation={10} sx={{ borderRadius: 6, padding: 4 }}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Reset Password
+              </Typography>
+              <Box component="form" onSubmit={handleSubmit}>
+                <TextField
+                  label="New Password"
+                  name="password"
+                  type="password"
+                  fullWidth
+                  required
+                  onChange={handleChange}
+                />
+                <TextField
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  type="password"
+                  fullWidth
+                  required
+                  onChange={handleChange}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  sx={{ mt: 2 }}
+                >
+                  Reset Password
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

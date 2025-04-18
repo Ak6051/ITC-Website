@@ -8,6 +8,9 @@ const employerRoutes = require('./routes/employer.route');
 const candidateRoutes = require( "./routes/candidate.route");
 const recruiterProfile = require('./routes/recruiter.profile');
 const searchRoutes = require('./routes/search.route')
+const employerProfileRoute = require('./routes/employer.profile.route')
+const applicationRoutes = require("./routes/JobApplication.route");
+const jobRoutes = require("./routes/JobPost.route"); // Import Job Routes
 
 // Load environment variables
 dotenv.config();
@@ -24,6 +27,10 @@ app.use('/api/fetch', recruiterProfile);
 app.use('/api/job' ,searchRoutes)
 app.use('/api/recruiter', require('./routes/recruiter.route'))
 app.use("/api/candidate", candidateRoutes);
+app.use("/api/employerProfile", employerProfileRoute);
+app.use("/api/applications", applicationRoutes);
+app.use("/api/jobs", jobRoutes);  // Job Route Add Karo
+
 
 
 // MongoDB Connection

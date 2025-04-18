@@ -1,30 +1,184 @@
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import { Grid, Box, Typography, Button, Container, useMediaQuery } from "@mui/material";
+// import { LocationOn, Work, AttachMoney } from "@mui/icons-material";
+// import { motion } from "framer-motion";
+// import { useNavigate } from "react-router-dom";
 
+// const JobList = () => {
+//   // const [jobs, setJobs] = useState([]);
+//   // const [loading, setLoading] = useState(true);
+//   // const [error, setError] = useState(null);
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Grid, Card, CardContent, Typography, Button, Box, Divider, CardActions } from "@mui/material";
-import { LocationOn, Work } from "@mui/icons-material";
-import { motion } from "framer-motion";
+//   // const isMobile = useMediaQuery("(max-width: 600px)");
+//   // const navigate = useNavigate();
 
-const JobGrid = () => {
+//   // useEffect(() => {
+//   //   const fetchJobs = async () => {
+//   //     try {
+//   //       const [employerResponse, recruiterResponse] = await Promise.all([
+//   //         axios.get("http://localhost:5000/api/employer/all-jobs"),
+//   //         axios.get("http://localhost:5000/api/recruiter/all"),
+//   //       ]);
+
+//   //       const mergedJobs = [...employerResponse.data, ...recruiterResponse.data];
+//   //       setJobs(mergedJobs);
+//   //     } catch (error) {
+//   //       setError("Error fetching jobs");
+//   //       console.error("Error:", error);
+//   //     } finally {
+//   //       setLoading(false);
+//   //     }
+//   //   };
+
+//   //   fetchJobs();
+//   // }, []);
+
+//   // if (loading) return <Typography align="center">Loading jobs...</Typography>;
+//   // if (error) return <Typography align="center" color="error">{error}</Typography>;
+//   const [jobs, setJobs] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   const isMobile = useMediaQuery("(max-width: 600px)");
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const fetchJobs = async () => {
+//       try {
+//         const response = await axios.get("http://localhost:5000/api/jobs/all"); // ✅ Only one API
+//         setJobs(response.data); // ✅ Directly setting the fetched data
+//       } catch (error) {
+//         setError("Error fetching jobs");
+//         console.error("Error:", error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchJobs();
+//   }, []);
+
+//   if (loading) return <Typography align="center">Loading jobs...</Typography>;
+//   if (error) return <Typography align="center" color="error">{error}</Typography>;
+
+//   return (
+//     <Container maxWidth="lg" sx={{ py: 5 }}>
+//       <Typography variant="h4" align="center" fontWeight="bold" gutterBottom>
+//         Find <span style={{ color: "#1976d2" }}>Your Dream Job</span>
+//       </Typography>
+
+//       <Grid container spacing={4}>
+//         {jobs.map((job, index) => (
+//           <Grid item xs={12} sm={6} md={4} key={index}>  {/* ✅ 3 cards per row */}
+//             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+//               <Box
+//                 sx={{
+//                   display: "flex",
+//                   flexDirection: "column",
+//                   justifyContent: "space-between",
+//                   p: 4,
+//                   backgroundColor: "#fff",
+//                   borderRadius: "12px",
+//                   boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+//                   transition: "0.3s",
+//                   "&:hover": { boxShadow: "0 8px 24px rgba(0,0,0,0.2)" },
+//                   height: "100%",
+//                   border: "1px solid #e0e0e0",
+//                 }}
+//               >
+//                 {/* JOB TITLE */}
+//                 <Typography
+//                   variant="h6"
+//                   fontWeight="bold"
+//                   color="#1976d2"
+//                   sx={{ mb: 1 }}
+//                 >
+//                   {job.title}
+//                 </Typography>
+
+//                 {/* LOCATION */}
+//                 <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+//                   <LocationOn fontSize="small" sx={{ color: "#616161", mr: 0.5 }} />
+//                   <Typography variant="body2" color="textSecondary">
+//                     {job.jobLocation || "Location not specified"}
+//                   </Typography>
+//                 </Box>
+
+//                 {/* SALARY */}
+//                 <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+//                   <AttachMoney fontSize="small" sx={{ color: "#43a047", mr: 0.5 }} />
+//                   <Typography variant="body2" color="textSecondary">
+//                     {job.salary || "Not mentioned"}
+//                   </Typography>
+//                 </Box>
+
+//                 {/* EXPERIENCE */}
+//                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+//                   <Work fontSize="small" sx={{ color: "#ff9800", mr: 0.5 }} />
+//                   <Typography variant="body2" color="textSecondary">
+//                     {job.experienceRequired || "Fresher"}
+//                   </Typography>
+//                 </Box>
+
+//                 {/* APPLY BUTTON */}
+//                 <Button
+//                   variant="contained"
+//                   fullWidth
+//                   onClick={() => navigate("/jobdetails", { state: { job } })}
+//                   sx={{
+//                     backgroundColor: "#1976d2",
+//                     color: "#fff",
+//                     textTransform: "none",
+//                     transition: "0.3s",
+//                     "&:hover": { backgroundColor: "#1565c0" },
+//                   }}
+//                 >
+//                   View Detail
+//                 </Button>
+//               </Box>
+//             </motion.div>
+//           </Grid>
+//         ))}
+//       </Grid>
+//     </Container>
+//   );
+// };
+
+// export default JobList;
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  Grid,
+  Box,
+  Typography,
+  Button,
+  Container,
+  useMediaQuery,
+} from '@mui/material';
+import { LocationOn, Work, AttachMoney } from '@mui/icons-material';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+
+const JobList = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showAll, setShowAll] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 600px)');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const [employerResponse, recruiterResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/employer/all-jobs"),
-          axios.get("http://localhost:5000/api/recruiter/all"),
-        ]);
-
-        const mergedJobs = [...employerResponse.data, ...recruiterResponse.data]; // Merging both API responses
-        setJobs(mergedJobs);
+        const response = await axios.get('http://localhost:5000/api/jobs/all');
+        const activeJobs = response.data.filter(
+          (job) => job.status === 'active'
+        ); // ✅ Only active jobs
+        setJobs(activeJobs);
       } catch (error) {
-        setError("Error fetching jobs");
-        console.error("Error fetching jobs:", error);
+        setError('Error fetching jobs');
+        console.error('Error:', error);
       } finally {
         setLoading(false);
       }
@@ -34,95 +188,95 @@ const JobGrid = () => {
   }, []);
 
   if (loading) return <Typography align="center">Loading jobs...</Typography>;
-  if (error) return <Typography align="center" color="error">{error}</Typography>;
-
-  const visibleJobs = showAll ? jobs : jobs.slice(0, 6);
+  if (error)
+    return (
+      <Typography align="center" color="error">
+        {error}
+      </Typography>
+    );
 
   return (
-    <Box sx={{ px: 3, py: 5, backgroundColor: "#f9f9fb" }}>
+    <Container maxWidth="lg" sx={{ py: 5 }}>
       <Typography variant="h4" align="center" fontWeight="bold" gutterBottom>
-        Jobs for <span style={{ color: "#007bff" }}>Candidates</span>
+        Find <span style={{ color: '#1976d2' }}>Your Dream Job</span>
       </Typography>
-      <Grid container spacing={2}>
-        {visibleJobs.map((job, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <Card
+
+      <Grid container spacing={4}>
+        {jobs.map((job, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Box
                 sx={{
-                  borderRadius: "10px",
-                  boxShadow: "0 3px 8px rgba(0, 0, 0, 0.1)",
-                  transition: "0.3s",
-                  padding: "10px",
-                  height: "auto",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  background: "#fff",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  p: 4,
+                  backgroundColor: '#fff',
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  transition: '0.3s',
+                  '&:hover': { boxShadow: '0 8px 24px rgba(0,0,0,0.2)' },
+                  height: '100%',
+                  border: '1px solid #e0e0e0',
                 }}
               >
-                <CardContent sx={{ paddingBottom: "8px" }}>
-                  <Typography variant="h6" fontWeight="bold" color="#333" sx={{ mb: 0.5 }}>
-                    {job.title}
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  color="#1976d2"
+                  sx={{ mb: 1 }}
+                >
+                  {job.title}
+                </Typography>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                  <LocationOn
+                    fontSize="small"
+                    sx={{ color: '#616161', mr: 0.5 }}
+                  />
+                  <Typography variant="body2" color="textSecondary">
+                    {job.jobLocation || 'Location not specified'}
                   </Typography>
-                  <Typography variant="subtitle2" color="primary" sx={{ mb: 1 }}>
-                    {job.requirement}
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                  <CurrencyRupeeIcon
+                    fontSize="small"
+                    sx={{ color: '#43a047', mr: 0.5 }}
+                  />
+                  <Typography variant="body2" color="textSecondary">
+                    {job.salary || 'Not mentioned'}
                   </Typography>
-                  <Divider sx={{ mb: 1 }} />
-                  {/* <Typography variant="body2" color="textSecondary" sx={{ mb: 1, height: "40px", overflow: "hidden" }}>
-                    {job.description.length > 80 ? job.description.substring(0, 80) + "..." : job.description}
-                  </Typography> */}
-                  <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-                    <Work fontSize="small" sx={{ color: "#757575", mr: 0.5 }} />
-                    <Typography variant="body2" color="textSecondary">
-                      Experience: {job.experience || "Not specified"}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-                    <LocationOn fontSize="small" sx={{ color: "#757575", mr: 0.5 }} />
-                    <Typography variant="body2" color="textSecondary">
-                      {job.location}
-                    </Typography>
-                  </Box>
-                  {/* <Typography variant="body2" fontWeight="bold">
-                    Company: {job.companyName}
-                  </Typography> */}
-                </CardContent>
-                <CardActions>
-                  <Button size="small" sx={{ color: "#FFC107", fontWeight: "bold" }}>
-                    Apply Now
-                  </Button>
-                </CardActions>
-              </Card>
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                  <Work fontSize="small" sx={{ color: '#ff9800', mr: 0.5 }} />
+                  <Typography variant="body2" color="textSecondary">
+                    {job.experienceRequired || 'Fresher'}
+                  </Typography>
+                </Box>
+
+                <Button
+                  variant="contained"
+                  fullWidth
+                  onClick={() => navigate('/jobdetails', { state: { job } })}
+                  sx={{
+                    backgroundColor: '#1976d2',
+                    color: '#fff',
+                    textTransform: 'none',
+                    transition: '0.3s',
+                    '&:hover': { backgroundColor: '#1565c0' },
+                  }}
+                >
+                  View Detail
+                </Button>
+              </Box>
             </motion.div>
           </Grid>
         ))}
       </Grid>
-      <Box sx={{ textAlign: "center", mt: 4 }}>
-        {jobs.length > 6 && (
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => setShowAll(!showAll)}
-              sx={{
-                textTransform: "none",
-                borderRadius: "25px",
-                px: 4,
-                py: 1,
-                backgroundColor: "#007bff",
-                transition: "0.3s",
-                "&:hover": {
-                  backgroundColor: "#0056b3",
-                },
-              }}
-            >
-              {showAll ? "Show Less" : "View All Jobs"}
-            </Button>
-          </motion.div>
-        )}
-      </Box>
-    </Box>
+    </Container>
   );
 };
 
-export default JobGrid;
+export default JobList;

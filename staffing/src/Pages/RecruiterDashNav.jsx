@@ -53,18 +53,16 @@ const RecruiterDashNav = () => {
         <ListItem button onClick={() => navigate("/jobpost")}>
           <ListItemText primary="Add New Job" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick = {()=> navigate("/manageJob")}>
           <ListItemText primary="Manage Job" />
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="New Application" />
-        </ListItem>
-        <ListItem button>
+        <ListItem button onClick = {() => navigate("/candidate-fetch")}>
           <ListItemText primary="Manage Candidates" />
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Remove Account" />
+        <ListItem button onClick = {() => navigate("/register")}>
+          <ListItemText primary="Add Recruiter" />
         </ListItem>
+       
       </List>
     </Box>
   );
@@ -127,28 +125,26 @@ const RecruiterDashNav = () => {
               open={Boolean(candidatesAnchorEl)}
               onClose={() => handleMenuClose(setCandidatesAnchorEl)}
             >
-              <DropdownItem onClick={() => handleMenuClose(setCandidatesAnchorEl)}>
-                New Application
-              </DropdownItem>
-              <DropdownItem onClick={() => handleMenuClose(setCandidatesAnchorEl)}>
+             
+              <DropdownItem onClick={() =>navigate("/candidate-fetch")}>
                 Manage Candidates
               </DropdownItem>
             </Menu>
 
-            <Button
+             <Button
               color="inherit"
               onClick={(e) => handleMenuOpen(e, setSettingsAnchorEl)}
               endIcon={<ArrowDropDownIcon />}
             >
-              Settings
+              Recruiter 
             </Button>
             <Menu
               anchorEl={settingsAnchorEl}
               open={Boolean(settingsAnchorEl)}
               onClose={() => handleMenuClose(setSettingsAnchorEl)}
             >
-              <DropdownItem onClick={() => handleMenuClose(setSettingsAnchorEl)}>
-                Remove Account
+              <DropdownItem onClick={() =>navigate("/register")}>
+                Add One More Recruiter
               </DropdownItem>
             </Menu>
           </Box>

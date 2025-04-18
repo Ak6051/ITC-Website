@@ -1,25 +1,38 @@
-const multer = require("multer");
-const path = require("path");
+// middleware/upload.js
 
-// ✅ Storage Configuration
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+const uploadDir = path.resolve(__dirname, '../uploads/resumes');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // ✅ Save files in `uploads` folder
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // ✅ Unique file name
-  },
+    cb(null, `${Date.now()}-${file.originalname}`);
+  }
 });
 
-// ✅ File Filter (Only PDFs allowed)
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "application/pdf") {
-    cb(null, true);
-  } else {
-    cb(new Error("Only PDF files are allowed"), false);
-  }
+  const allowedTypes = [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  ];
+  allowedTypes.includes(file.mimetype) ? cb(null, true) : cb(new Error('Invalid file type'), false);
 };
 
 const upload = multer({ storage, fileFilter });
 
-module.exports = upload;
+// 👇 Helper to get relative URL path
+const getResumeUrl = (filePath) => {
+  const relative = filePath.split('uploads')[1].replace(/\\/g, '/');
+  return `/uploads${relative}`;
+};
+
+module.exports = { upload, getResumeUrl };
